@@ -1,39 +1,19 @@
-
-#mainBody{
-  padding:0;margin:0
-}
-#mainBody li{
-  list-style:none
-}
-#wrap #left ul li{
-  width:290px;
-  height:50px;
-  line-height:50px;
-  padding-left:10px;
-  position:relative
-}
-#wrap #left ul li span{
-  display:block;
+#wrap #left span{
+  display:inline-block;
   width:80px;
   height:40px;
   line-height:40px;
   text-align:center;
-  cursor:pointer;
   margin:5px 20px 0 0;
   background:#FFF8DC;
   border-right:solid 1px #aaa;
   border-bottom:solid 1px #aaa;
-  position:absolute;top:0;
-  left:100px
-}
-#wrap #left ul li#gameRule p{
-  height:30px;font-size:15px
-}
-#wrap #right{
-  width:310px;height:300px;margin:0 auto;
 }
 #wrap #right #imgArea{
-  width:300px;height:300px;position:relative
+  width:700px;
+  height:700px;
+  margin: 0 auto;
+  position:relative;
 }
 #wrap #right #imgArea div.imgCell{
   float:left;

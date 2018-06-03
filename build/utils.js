@@ -60,7 +60,7 @@ exports.cssLoaders = function (options) {
   function generateSassResourceLoader () {
     var loaders = [
       cssLoader,
-      px2remLoader,
+      // px2remLoader,
       'sass-loader',
       {
         loader: 'sass-resources-loader',

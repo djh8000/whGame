@@ -3,14 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>文化云游戏</title>
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
-    <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" name="viewport">
     <meta content="yes" name="apple-touch-fullscreen">
     <meta content="telephone=no,email=no" name="format-detection">
     <meta content="fullscreen=yes,useHistoryState=yes,transition=yes" name="App-Config">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <script>
+      (function () {
+        var phoneWidth = parseInt(window.screen.width);
+        var phoneScale = phoneWidth / 750;
+        var ua = navigator.userAgent;            //浏览器类型
+        if (/Android (\d+\.\d+)/.test(ua)) {      //判断是否是安卓系统
+          var version = parseFloat(RegExp.$1); //安卓系统的版本号
+          if (version > 2.3) {
+            document.write('<meta name="viewport" content="width=750, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+          } else {
+            document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">');
+          }
+        } else {
+          document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+      }());
+    </script>
   </head>
   <body>
     <div id="app"></div>

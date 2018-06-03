@@ -2,22 +2,8 @@
   <div id="mainBody">
     <div id="wrap">
       <div id="left">
-        <ul>
-          <li>
-            选择图片：
-            <select id="sel_img">
-              <option value="1" selected="selected">图1</option>
-              <option value="2">图2</option>
-              <option value="3">图3</option>
-            </select>
-          </li>
-          <li id="start">
-            开始游戏:<span>开始</span>
-          </li>
-          <li id="level">
-            难度选择:<span>3x3</span>
-          </li>		
-        </ul>
+        <span id="start">开始</span>
+        <span id="level">3x3</span>
       </div>
       <div id="right">
         <div id="imgArea"></div>
@@ -38,10 +24,13 @@ export default {
   },
   mounted () {
     const initData = {
-      img: '/static/img/img1.jpg',
-      level: 2
+      img: '/static/img/img4.jpg',
+      level: 0
     }
     this.pg = new PuzzleGame(initData)
+    this.pg.complete = function () {
+      console.log(8888)
+    }
   }
 }
 </script>
