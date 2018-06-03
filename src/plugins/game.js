@@ -28,7 +28,7 @@ var puzzleGame = function (param) {
   this.imgRandArr = []// 图片打乱顺序后，存储当前排序的数组
 
   this.levelArr = [[3, 3], [4, 4], [5, 5]]// 存储难度等级的数组
-  this.levelNow = 0// 表示当前难度等级的变量，与难度数组结合使用
+  this.levelNow = param.level || 0// 表示当前难度等级的变量，与难度数组结合使用
 
     // 图片整体的宽高
   this.imgWidth = parseInt(this.imgArea.css('width'))
