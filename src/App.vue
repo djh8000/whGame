@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <navigation>
+      <!-- <navigation> -->
         <router-view class="Router">
         </router-view>
-      </navigation>
+      <!-- </navigation> -->
     </transition>
   </div>
 </template>
@@ -17,15 +17,15 @@ export default {
     }
   },
   created () {
-    this.$navigation.on('forward', (to, from) => {
-      this.transitionName = 'slide-left'
-    })
-    this.$navigation.on('back', (to, from) => {
-      this.transitionName = 'slide-right'
-    })
-    this.$navigation.on('replace', (to, from) => {
-      this.transitionName = ''
-    })
+    // this.$navigation.on('forward', (to, from) => {
+    //   this.transitionName = 'slide-left'
+    // })
+    // this.$navigation.on('back', (to, from) => {
+    //   this.transitionName = 'slide-right'
+    // })
+    // this.$navigation.on('replace', (to, from) => {
+    //   this.transitionName = ''
+    // })
     // this.$http.post('api/dynamic/getList', {}).then(res => {
     //   console.log(res)
     // })

@@ -5,8 +5,6 @@ imgOrigArr 和 imgRanfArr这两个数组分别存放正确顺序排列和乱序�
 
 /**
  * [puzzleGame 向puzzleGame对象中添加属性]
- * @param  {[json格式]} param [图片 路径+名称]
- * @return       [无]
  */
 // import $ from 'jQuery'
 var $ = require('jquery')
@@ -15,9 +13,7 @@ var puzzleGame = function (param) {
   this.img = param.img || ''// 待操作的图片
 
   /** *********** 节点 ******************/
-  this.btnStart = $('#wrap #left #start')// 开始游戏按钮
-  this.btnLevel = $('#wrap #left #level')// 难度选择按钮
-  this.imgArea = $('#wrap #right #imgArea')// 图片显示区域
+  this.imgArea = $('#wrap #imgArea')// 图片显示区域
 
   this.imgCells = ''// 用于记录碎片节点的变量
 
@@ -25,25 +21,25 @@ var puzzleGame = function (param) {
   this.imgOrigArr = []// 图片拆分后，存储正确排序的数组
   this.imgRandArr = []// 图片打乱顺序后，存储当前排序的数组
 
-  this.levelArr = [[3, 3], [4, 4], [5, 5]]// 存储难度等级的数组
+  this.levelArr = param.levelArr// 存储难度等级的数组
   this.levelNow = param.level || 0// 表示当前难度等级的变量，与难度数组结合使用
 
-    // 图片整体的宽高
+  // 图片整体的宽高
   this.imgWidth = parseInt(this.imgArea.css('width'))
   this.imgHeight = parseInt(this.imgArea.css('height'))
-    // 拆分为碎片后，每一块碎片的宽高
+  // 拆分为碎片后，每一块碎片的宽高
   this.cellWidth = this.imgWidth / this.levelArr[this.levelNow][1]
   this.cellHeight = this.imgHeight / this.levelArr[this.levelNow][0]
 
   this.hasStart = 0// 记录有是否开始的变量，默认0，未开始
   this.moveTime = 400// 记录animate动画的运动时间，默认400毫秒
 
-    // 调用初始化函数，拆分图片,绑定按钮功能
+  this.suc = param.suc
+  // 调用初始化函数，拆分图片,绑定按钮功能
   this.init()
 }
 /**
  * [prototype 在puzzleGame对象中添加方法，用json格式表示]
- * @type {Object}
  */
 puzzleGame.prototype = {
   /**
@@ -52,16 +48,11 @@ puzzleGame.prototype = {
    */
   init: function () {
     this.imgSplit()
-    this.levelSelect()
     this.gameState()
   },
 
   /**
    * [imgSplit 将图片拆分为碎片]
-   * @param  obj    [图片,路径+名称]
-   * @param  cellW  [碎片宽度]
-   * @param  cellH  [碎片高度]
-   * @return        [记录正确排序的数组]
    */
   imgSplit: function () {
     this.imgOrigArr = []// 清空正确排序的数组
@@ -89,104 +80,55 @@ puzzleGame.prototype = {
         this.imgArea.append(cell)
       }
     }
-    this.imgCells = $('#wrap #right #imgArea div.imgCell')// 碎片节点
+    this.imgCells = $('#wrap #imgArea div.imgCell')// 碎片节点
   },
-
-  levelSelect: function () {
-    var len = this.levelArr.length
-    var self = this
-    this.btnLevel.unbind('click').bind('click', function () {
-      // 判断是否在游戏中
-      if (self.hasStart) {
-        if (!confirm('您已经在游戏中，确定要改变游戏难度么？')) {
-          return false
-        } else {
-          self.hasStart = 0
-          self.btnStart.text('开始')
-        }
-      }
-      // 内容改变
-      self.levelNow ++
-      if (self.levelNow >= len) {
-        self.levelNow = 0
-      }
-      // 显示的难度改变
-      $(this).text(self.levelArr[self.levelNow][0] + 'x' + self.levelArr[self.levelNow][1])
-      // 图片重新拆分(先重新计算宽高)
-      self.cellWidth = self.imgWidth / self.levelArr[self.levelNow][1]
-      self.cellHeight = self.imgHeight / self.levelArr[self.levelNow][0]
-      self.imgSplit()
-    })
-  },
-
   /**
    * [gameStart 开始/回复 游戏的函数]
-   * @return [无]
    */
   gameState: function () {
     var self = this
-    this.btnStart.unbind('click').bind('click', function () {
-      if (self.hasStart === 0) { // 不在游戏中
-        // 开始游戏后部分值、样式设置
-        $(this).text('复原')
-        self.hasStart = 1
+    // 开始游戏后部分值、样式设置
+    if (self.hasStart === 0) {
+      self.hasStart = 1
+      // 打乱图片
+      self.randomArr()
+      self.cellOrder(self.imgRandArr)
+      // 图片事件
+      self.imgCells.unbind('touchstart').bind('touchstart', function (e) {
+        /* 此处是图片移动 */
+        // 所选图片碎片的下标以及鼠标相对该碎片的位置
+        var cellIndex1 = $(this).index()
+        var cellmousex = e.targetTouches[0].pageX - self.imgCells.eq(cellIndex1).offset().left
+        var cellmousey = e.targetTouches[0].pageY - self.imgCells.eq(cellIndex1).offset().top
 
-        // 打乱图片
-        self.randomArr()
-        self.cellOrder(self.imgRandArr)
-
-        // 图片事件
-        self.imgCells.unbind('touchstart').bind('touchstart', function (e) {
-          /* 此处是图片移动 */
-
-          // 所选图片碎片的下标以及鼠标相对该碎片的位置
-          var cellIndex1 = $(this).index()
-          var cellmousex = e.targetTouches[0].pageX - self.imgCells.eq(cellIndex1).offset().left
-          var cellmousey = e.targetTouches[0].pageY - self.imgCells.eq(cellIndex1).offset().top
-
-          $(document).unbind('touchmove').bind('touchmove', function (e2) {
-            self.imgCells.eq(cellIndex1).css({
-              'z-index': '40',
-              'left': (e2.targetTouches[0].pageX - cellmousex - self.imgArea.offset().left) + 'px',
-              'top': (e2.targetTouches[0].pageY - cellmousey - self.imgArea.offset().top) + 'px'
-            })
-            e2.preventDefault()
-          }).unbind('touchend').bind('touchend', function (e3) {
-            // 被交换的碎片下标
-            var cellIndex2 = self.cellChangeIndex((e3.changedTouches[0].pageX - self.imgArea.offset().left), (e3.changedTouches[0].pageY - self.imgArea.offset().top), cellIndex1)
-
-            // 碎片交换
-            if (cellIndex1 === cellIndex2) {
-              self.cellReturn(cellIndex1)
-            } else {
-              self.cellExchange(cellIndex1, cellIndex2)
-            }
-            e3.preventDefault()
-            // 移除绑定
-            $(document).unbind('touchmove').unbind('touchend')
+        $(document).unbind('touchmove').bind('touchmove', function (e2) {
+          self.imgCells.eq(cellIndex1).css({
+            'z-index': '40',
+            'left': (e2.targetTouches[0].pageX - cellmousex - self.imgArea.offset().left) + 'px',
+            'top': (e2.targetTouches[0].pageY - cellmousey - self.imgArea.offset().top) + 'px'
           })
-          e.preventDefault()
+          e2.preventDefault()
+        }).unbind('touchend').bind('touchend', function (e3) {
+          // 被交换的碎片下标
+          var cellIndex2 = self.cellChangeIndex((e3.changedTouches[0].pageX - self.imgArea.offset().left), (e3.changedTouches[0].pageY - self.imgArea.offset().top), cellIndex1)
+          // 碎片交换
+          if (cellIndex1 === cellIndex2) {
+            self.cellReturn(cellIndex1)
+          } else {
+            self.cellExchange(cellIndex1, cellIndex2)
+          }
+          e3.preventDefault()
+          // 移除绑定
+          $(document).unbind('touchmove').unbind('touchend')
         })
-      } else if (self.hasStart === 1) {
-        if (!confirm('已经在游戏中，确定要回复原图？')) {
-          return false
-        }
-        // 样式恢复
-        $(this).text('开始')
-        self.hasStart = 0
-
-        // 复原图片
-        self.cellOrder(self.imgOrigArr)
-
-        // 取消事件绑定
-        self.imgCells.unbind('touchstart').unbind('touchmove').unbind('touchend')
-      }
-    })
+        e.preventDefault()
+      })
+    } else if (self.hasStart === 1) {
+      alert('已经在游戏中！')
+    }
   },
-
   /**
    * [randomArr 生成不重复的随机数组的函数]
-   * @return [无]
    */
   randomArr: function () {
     // 清空数组
@@ -206,8 +148,6 @@ puzzleGame.prototype = {
 
   /**
    * [cellOrder 根据数组给图片排序的函数]
-   * @param  arr [用于排序的数组，可以是正序或乱序]
-   * @return     [无]
    */
   cellOrder: function (arr) {
     for (var i = 0, len = arr.length; i < len; i++) {
@@ -220,10 +160,6 @@ puzzleGame.prototype = {
 
   /**
    * [cellChangeIndex 通过坐标，计算被交换的碎片下标]
-   * @param  x    [鼠标x坐标]
-   * @param  y    [鼠标y坐标]
-   * @param  orig [被拖动的碎片下标，防止不符合碎片交换条件时，原碎片返回]
-   * @return      [被交换节点在节点列表中的下标]
    */
   cellChangeIndex: function (x, y, orig) {
     // 鼠标拖动碎片移至大图片外
@@ -244,9 +180,6 @@ puzzleGame.prototype = {
 
   /**
    * [cellExchange 两块图片碎片进行交换]
-   * @param  from [被拖动的碎片]
-   * @param  to   [被交换的碎片]
-   * @return      [交换结果，成功为true,失败为false]
    */
   cellExchange: function (from, to) {
     var self = this
@@ -285,8 +218,6 @@ puzzleGame.prototype = {
 
   /**
    * [cellReturn 被拖动图片返回原位置的函数]
-   * @param  index [被拖动图片的下标]
-   * @return       [无]
    */
   cellReturn: function (index) {
     var row = Math.floor(this.imgRandArr[index] / this.levelArr[this.levelNow][1])
@@ -302,9 +233,6 @@ puzzleGame.prototype = {
 
   /**
    * [checkPass 判断游戏是否成功的函数]
-   * @param  rightArr  [正确排序的数组]
-   * @param  puzzleArr [拼图移动的数组]
-   * @return           [是否完成游戏的标记，是返回true，否返回false]
    */
   checkPass: function (rightArr, puzzleArr) {
     if (rightArr.toString() === puzzleArr.toString()) {
@@ -315,16 +243,13 @@ puzzleGame.prototype = {
 
   /**
    * [success 成功完成游戏后的处理函数]
-   * @return [description]
    */
   success: function () {
     this.imgCells.unbind('touchstart').unbind('touchmove').unbind('touchend')
-    this.btnStart.text('开始')
     this.hasStart = 0
-    alert('恭喜您，成功完成本次游戏！')
-    this.complete()
-  },
-  complete: function () {}
+    // alert('恭喜您，成功完成本次游戏！')
+    this.suc()
+  }
 }
 
 export default puzzleGame
