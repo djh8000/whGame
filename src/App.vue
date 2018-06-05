@@ -1,5 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{
+    'spring': theme == 1,
+    'summer': theme == 2,
+    'autumn': theme == 3,
+    'winter': theme == 4
+  }">
     <transition :name="transitionName">
       <!-- <navigation> -->
         <router-view class="Router">
@@ -13,6 +18,7 @@ export default {
   name: 'app',
   data () {
     return {
+      theme: 2,
       transitionName: ''
     }
   },
