@@ -3,7 +3,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 const home = () => import(/* webpackChunkName:'home' */ '../pages/home.vue')
-const game = () => import(/* webpackChunkName:'game' */ '../pages/game.vue')
+const puzzle = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/index.vue')
+const game = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/game.vue')
 
 export default new Router({
   mode: 'history',
@@ -14,8 +15,13 @@ export default new Router({
       component: home
     },
     {
-      name: 'game',
-      path: '/game/:id',
+      name: 'puzzle',
+      path: '/puzzle',
+      component: puzzle
+    },
+    {
+      name: 'puzzlePlay',
+      path: '/puzzle/play:id',
       component: game
     }
   ]

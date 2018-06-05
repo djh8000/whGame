@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import PuzzleGame from '../plugins/game'
+import PuzzleGame from '../../plugins/game'
 export default {
   name: 'home',
   data () {
