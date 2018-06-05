@@ -11,6 +11,7 @@ import FastClick from 'fastclick'
 import 'lib-flexible/flexible.js'
 import './plugins/mint-ui'
 import './assets/css/common.scss'
+import './assets/css/theme.scss'
 
 FastClick.attach(document.body)
 Vue.prototype.$cookie = cookie
