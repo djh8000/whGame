@@ -24,7 +24,7 @@ export default new Router({
     },
     {
       name: 'puzzlePlay',
-      path: '/puzzle/play:id',
+      path: '/puzzle/play/:id',
       component: game
     }
   ]
