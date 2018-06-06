@@ -7,6 +7,8 @@
         <p>游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则</p>
       </div>
     </div>
+    <router-link class="btn btn1" to="/puzzle/play"></router-link>
+      <router-link class="btn btn2" to="/"></router-link>
   </div>
 </template>
 
@@ -51,6 +53,12 @@
         line-height: 48px;
         text-align: justify;
       }
+    }
+    .btn1{
+      margin-top: 40px;
+    }
+    .btn2{
+      margin-top: 30px;
     }
   }
 </style>
