@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss">
   #gameBody{
-    background-color: $master2;
+    background-color: $mColor2;
     height: 100vh;
     padding-top: 90px;
     p{
