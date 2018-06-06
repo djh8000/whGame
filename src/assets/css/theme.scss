@@ -15,7 +15,13 @@
 	}
 	&.bg{
     background-color:  $mColor1;
-	}
+  }
+  /* 答题首页 */
+  .knowIndex{
+  	.mainTit{
+  		background: url('../img/icon1-2.png')no-repeat;
+  	}
+  }
 	//拼图首页
 	.puzzleHome{
 		background: url('../img/m-bg1.png') center bottom no-repeat;
@@ -25,15 +31,15 @@
 				color: $mColor1;
 			}
 		}
-		.btn1{
-			background: url('../img/btn2-4.png') center center no-repeat;
-		}
-		.btn2{
-			background: url('../img/btn2-3.png') center center no-repeat;
-		}
-		.closeBtn{
-			background: url('../img/close1-1.png') center center no-repeat;
-		}
+	}
+	.btn1{
+		background: url('../img/btn2-4.png') center center no-repeat;
+	}
+	.btn2{
+		background: url('../img/btn2-3.png') center center no-repeat;
+	}
+	.closeBtn{
+		background: url('../img/close1-1.png') center center no-repeat;
 	}
 }
 .summer{

@@ -1,6 +1,6 @@
 <template>
   <div class="mainIndex">
-  	<router-link class="game1" to="/puzzle"></router-link>
+  	<router-link class="game1" to="/know"></router-link>
   	<router-link class="game2" to="/puzzle"></router-link>
   </div>
 </template>

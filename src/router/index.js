@@ -5,6 +5,7 @@ Vue.use(Router)
 const home = () => import(/* webpackChunkName:'home' */ '../pages/home.vue')
 const puzzle = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/index.vue')
 const game = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/game.vue')
+const know = () => import(/* webpackChunkName:'know' */ '../pages/know/index.vue')
 
 export default new Router({
   mode: 'history',
@@ -26,6 +27,11 @@ export default new Router({
       name: 'puzzlePlay',
       path: '/puzzle/play/:id',
       component: game
+    },
+    {
+      name: 'know',
+      path: '/know',
+      component: know
     }
   ]
 })
