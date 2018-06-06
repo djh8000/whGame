@@ -12,6 +12,9 @@
 		background: url(../img/btn1-2.png) no-repeat center;
 		background-size: 100% 100%;
 	}
+	&.bg{
+    background-color:  $mColor1;
+  }
 }
 .summer{
 	.mainIndex{

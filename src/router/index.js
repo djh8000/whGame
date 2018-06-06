@@ -12,7 +12,10 @@ export default new Router({
     {
       name: 'home',
       path: '/',
-      component: home
+      component: home,
+      meta: {
+        nobg: true
+      }
     },
     {
       name: 'puzzle',
