@@ -4,7 +4,7 @@
     'summer': theme == 2,
     'autumn': theme == 3,
     'winter': theme == 4,
-    'bg': !$route.meta.nobg}">
+    'bg': $route.meta.isbg}">
     <router-view></router-view>
   </div>
 </template>

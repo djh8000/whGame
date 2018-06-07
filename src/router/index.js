@@ -15,15 +15,15 @@ export default new Router({
     {
       name: 'home',
       path: '/',
-      component: home,
-      meta: {
-        nobg: true
-      }
+      component: home
     },
     {
       name: 'puzzle',
       path: '/puzzle',
-      component: puzzle
+      component: puzzle,
+      meta: {
+        isbg: true
+      }
     },
     {
       name: 'puzzlePlay',
@@ -33,7 +33,10 @@ export default new Router({
     {
       name: 'know',
       path: '/know',
-      component: know
+      component: know,
+      meta: {
+        isbg: true
+      }
     },
     {
       name: 'gameover',
