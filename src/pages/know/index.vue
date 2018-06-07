@@ -12,7 +12,7 @@
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
       <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>
-      <router-link class="backHome" to="/"></router-link>
+      <router-link class="btn backHome" to="/"></router-link>
     </mt-popup>
   </div>
 </template>
@@ -97,10 +97,7 @@
         margin-top: 115px;
       }
       .backHome{
-        display: block;
-        width: 439px;height: 107px;
         margin: 35px auto 0;
-        background: url(../../assets/img/btn2-6.png) no-repeat;
       }
     }
   }
