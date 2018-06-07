@@ -6,8 +6,8 @@ const home = () => import(/* webpackChunkName:'home' */ '../pages/home.vue')
 const puzzle = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/index.vue')
 const game = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/game.vue')
 const know = () => import(/* webpackChunkName:'know' */ '../pages/know/index.vue')
-const gameover = () => import(/* webpackChunkName:'gameover' */ '../pages/gameover.vue')
-const score = () => import(/* webpackChunkName:'score' */ '../pages/score.vue')
+const gameOver = () => import(/* webpackChunkName:'gameOver' */ '../pages/gameOver.vue')
+const scoreList = () => import(/* webpackChunkName:'scoreList' */ '../pages/scoreList.vue')
 
 export default new Router({
   mode: 'history',
@@ -39,14 +39,14 @@ export default new Router({
       }
     },
     {
-      name: 'gameover',
-      path: '/gameover',
-      component: gameover
+      name: 'gameOver',
+      path: '/gameOver',
+      component: gameOver
     },
     {
-      name: 'score',
-      path: '/score',
-      component: score
+      name: 'scoreList',
+      path: '/scoreList',
+      component: scoreList
     }
   ]
 })

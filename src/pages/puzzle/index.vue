@@ -10,8 +10,8 @@
         <p>5.规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则</p>
       </div>
     </div>
-    <mt-button class="btn btn1" @click="levelPopup = true"></mt-button>
-    <router-link class="btn btn2" to="/"></router-link>
+    <mt-button class="btn actionBtn" @click="levelPopup = true"></mt-button>
+    <router-link class="btn scoreBtn" to="/"></router-link>
     <!-- 难度选择弹层 -->
     <mt-popup class="levelPopup" v-model="levelPopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="levelPopup = false"></i>
@@ -90,10 +90,10 @@
         }
       }
     }
-    .btn1{
+    .actionBtn{
       margin-top: 50px;
     }
-    .btn2{
+    .scoreBtn{
       margin-top: 30px;
     }
     .levelPopup{

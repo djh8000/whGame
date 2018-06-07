@@ -7,8 +7,8 @@
         <p>游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则</p>
       </div>
     </div>
-    <mt-button class="btn btn1" @click="timesPopup = true"></mt-button>
-    <router-link class="btn btn2" to="/"></router-link>
+    <mt-button class="btn actionBtn" @click="timesPopup = true"></mt-button>
+    <router-link class="btn scoreBtn" to="/"></router-link>
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
       <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>
@@ -64,10 +64,10 @@
         text-align: justify;
       }
     }
-    .btn1{
+    .actionBtn{
       margin-top: 40px;
     }
-    .btn2{
+    .scoreBtn{
       margin-top: 30px;
     }
     // 次数不够弹层
