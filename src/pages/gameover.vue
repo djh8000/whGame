@@ -13,9 +13,6 @@
 
 </script>
 <style lang="scss" scoped>
-	// .bg{
-	//  	background-image: none; 
- //  }
 	.gameover{
 		height: 100vh;
     background: url('../assets/img/m-bg3.png') center bottom no-repeat;
