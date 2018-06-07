@@ -32,7 +32,7 @@ export default {
       this.time--
       console.log(this.time)
       if (this.time <= 0) {
-        this.$router.push('/gameOver')
+        this.$router.push('/gameover')
       }
     }, 1000)
   },
@@ -49,7 +49,7 @@ export default {
     success () {
       clearInterval(this.timeInit)
       alert('恭喜您，成功完成本次游戏！')
-      this.$router.push('/gameOver')
+      this.$router.push('/gameover')
     }
   }
 }
