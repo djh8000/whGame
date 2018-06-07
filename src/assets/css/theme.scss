@@ -22,8 +22,19 @@
   	.knowRole{
       background-image: url(../../assets/img/icon1-3.png),url(../../assets/img/icon1-3.png);
   	}
-	}
-	
+  }
+  .scoreWrap{
+  	.scoreList{
+  		.item{
+  			background-color: $answer-color1;
+  			.dhBtn.high{
+  				border: 3px solid $question-color1;
+  				color: $mColor1;
+  				
+  			}
+  		}
+  	}
+  }
 	.scrollbar::-webkit-scrollbar-thumb {  
 		background-color:$answer-color1 ; 
 	}
@@ -37,10 +48,10 @@
 			}
 		}
 	}
-	.btn1{
+	.actionBtn{
 		background: url('../img/btn2-4.png') center center no-repeat;
 	}
-	.btn2{
+	.scoreBtn{
 		background: url('../img/btn2-3.png') center center no-repeat;
 	}
 	.againBtn{
