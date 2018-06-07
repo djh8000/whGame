@@ -8,7 +8,7 @@
       </div>
     </div>
     <mt-button class="btn actionBtn" @click="timesPopup = true"></mt-button>
-    <router-link class="btn scoreBtn" to="/"></router-link>
+    <router-link class="btn scoreBtn" to="/scoreList"></router-link>
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
       <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>
@@ -69,36 +69,6 @@
     }
     .scoreBtn{
       margin-top: 30px;
-    }
-    // 次数不够弹层
-    .timesPopup{
-      width: 620px;
-      height: 410px;
-      border-radius: 20px;
-      background-color: #fff;
-      margin-top: -42px;
-      &:after{
-        content: '';
-        width: 303px;
-        height: 303px;
-        background: #fff url(../../assets/img/m-icon.png) no-repeat center 35px;
-        border-radius: 50%;
-        position: absolute;
-        top: -78px;
-        line-height: 303px;
-        left: 159px;
-        z-index: -1;
-      }
-      .tips{
-        color: #333333;
-        font-size: 36px;
-        line-height: 48px;
-        text-align: center;
-        margin-top: 115px;
-      }
-      .backHome{
-        margin: 35px auto 0;
-      }
     }
   }
 </style>

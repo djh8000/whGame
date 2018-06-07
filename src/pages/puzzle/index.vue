@@ -2,7 +2,7 @@
   <div class="puzzleHome">
     <img class="title" src="../../assets/img/icon2-1.png" alt="">
     <div class="p-main">
-      <div class="scroll">
+      <div class="scroll scrollbar">
         <p>1.规则规则规则规则规则规则规则规则</p>
         <p>2.规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则</p>
         <p>3.规则规则规则规则规则规则规则规则</p>
@@ -16,6 +16,7 @@
     <mt-popup class="levelPopup" v-model="levelPopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="levelPopup = false"></i>
       <div class="img">
+        <img :src="require(`../../assets/img/level${level}.png`)" alt="">
       </div>
       <p>请选择难易程度:</p>
       <ul class="levels">
@@ -32,20 +33,25 @@
           <span>5X5</span>
         </li>
       </ul>
-      <mt-button class="btn" @click="levelPopup = false; lookPopup = true"></mt-button>
+      <mt-button class="btn" @click="lookBtn"></mt-button>
     </mt-popup>
     <!-- 预览图片弹层 -->
     <mt-popup class="levelPopup lookPopup" v-model="lookPopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="lookPopup = false"></i>
       <div class="img">
-        <img src="/static/img/img3.jpg" alt="">
+        <img src="/static/img/img1.jpg" alt="">
       </div>
       <p class="time">
         <span class="s1">预计倒计时:</span>
-        <span class="s2">10</span>
+        <span class="s2">{{time}}</span>
         <span class="s3">S</span>
       </p>
-      <router-link class="btn" :to="`/puzzle/play/${level}`"></router-link>
+      <mt-button class="btn" @click="goPlay"></mt-button>
+    </mt-popup>
+    <!-- 次数不够弹层 -->
+    <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
+      <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>
+      <router-link class="btn backHome" to="/"></router-link>
     </mt-popup>
   </div>
 </template>
@@ -55,9 +61,30 @@
     name: 'puzzle',
     data () {
       return {
+        timesPopup: false,
         levelPopup: false,
         lookPopup: false,
-        level: 0
+        level: 0,
+        time: 9,
+        timeInit: null
+      }
+    },
+    methods: {
+      lookBtn () {
+        this.levelPopup = false
+        this.lookPopup = true
+        this.timeInit = setInterval(() => {
+          this.time--
+          if (this.time === 0) {
+            this.goPlay()
+          }
+        }, 1000)
+      },
+      goPlay () {
+        this.lookPopup = false
+        clearInterval(this.timeInit)
+        this.$router.push(`/puzzle/play/${this.level}`)
+        this.time = 10
       }
     }
   }
@@ -85,6 +112,7 @@
         overflow-y: auto;
         font-size: 28px;
         p{
+          width: 460px;
           margin: 15px 0;
           line-height: 1.3;
         }
@@ -107,6 +135,9 @@
         height: 290px;
         border: solid 1px #b6b6b6;
         margin: 70px auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       p{
         margin: 50px 0 35px;
