@@ -75,6 +75,7 @@
         this.lookPopup = true
         this.timeInit = setInterval(() => {
           this.time--
+          console.log(this.time)
           if (this.time === 0) {
             this.goPlay()
           }
@@ -82,9 +83,18 @@
       },
       goPlay () {
         this.lookPopup = false
-        clearInterval(this.timeInit)
         this.$router.push(`/puzzle/play/${this.level}`)
         this.time = 10
+      }
+    },
+    destroyed () {
+      clearInterval(this.timeInit)
+    },
+    watch: {
+      lookPopup (val) {
+        if (!val) {
+          clearInterval(this.timeInit)
+        }
       }
     }
   }
