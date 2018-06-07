@@ -114,3 +114,35 @@ div, img, ul, li, input{
   right: 22px;
   top: 22px;
 }
+.scrollbar{
+  overflow: auto;height: 100%;
+  overflow-y: auto; 
+  padding-right: 20px;
+}
+.scrollbar::-webkit-scrollbar-track-piece {  
+  background-color:#dfdfdf;  
+  border-left: 1px solid rgba(0, 0, 0, 0);  
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;
+}  
+.scrollbar::-webkit-scrollbar {  
+  width: 22px;  
+  height: 290px;  
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;
+}  
+.scrollbar::-webkit-scrollbar-thumb {   
+  background-clip: padding-box;  
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;  
+  height: 90px;  
+}  
+.scrollbar::-webkit-scrollbar-thumb:hover {  
+  opacity: .5; 
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;  
+} 
