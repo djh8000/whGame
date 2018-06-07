@@ -21,11 +21,12 @@
   	}
   	.knowRole{
       background-image: url(../../assets/img/icon1-3.png),url(../../assets/img/icon1-3.png);
-  		.scrollbar::-webkit-scrollbar-thumb {  
-        	background-color:$answer-color1 ; 
-        }
   	}
-  }
+	}
+	
+	.scrollbar::-webkit-scrollbar-thumb {  
+		background-color:$answer-color1 ; 
+	}
 	//拼图首页
 	.puzzleHome{
 		background: url('../img/m-bg1.png') center bottom no-repeat;

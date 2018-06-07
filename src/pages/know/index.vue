@@ -70,36 +70,6 @@
     .btn2{
       margin-top: 30px;
     }
-    // 次数不够弹层
-    .timesPopup{
-      width: 620px;
-      height: 410px;
-      border-radius: 20px;
-      background-color: #fff;
-      margin-top: -42px;
-      &:after{
-        content: '';
-        width: 303px;
-        height: 303px;
-        background: #fff url(../../assets/img/m-icon.png) no-repeat center 35px;
-        border-radius: 50%;
-        position: absolute;
-        top: -78px;
-        line-height: 303px;
-        left: 159px;
-        z-index: -1;
-      }
-      .tips{
-        color: #333333;
-        font-size: 36px;
-        line-height: 48px;
-        text-align: center;
-        margin-top: 115px;
-      }
-      .backHome{
-        margin: 35px auto 0;
-      }
-    }
   }
 </style>
 
