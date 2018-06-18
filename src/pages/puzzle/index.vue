@@ -39,7 +39,7 @@
     <mt-popup class="levelPopup lookPopup" v-model="lookPopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="lookPopup = false"></i>
       <div class="img">
-        <img src="/static/img/img1.jpg" alt="">
+        <img src="/static/img/djr.jpg" alt="">
       </div>
       <p class="time">
         <span class="s1">预计倒计时:</span>

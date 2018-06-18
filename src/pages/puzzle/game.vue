@@ -16,12 +16,12 @@ export default {
     return {
       pg: null,
       gameParams: {
-        img: '/static/img/img1.jpg',
+        img: '/static/img/djr.jpg',
         level: this.$route.params.id,
         levelArr: [[3, 3], [4, 4], [5, 5]],
         suc: this.success
       },
-      time: 30,
+      time: 120,
       timeInit: null
     }
   },
