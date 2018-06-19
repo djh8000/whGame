@@ -35,6 +35,9 @@ export default {
     // this.$http.post('api/dynamic/getList', {}).then(res => {
     //   console.log(res)
     // })
+    this.$http.get('/api/activity/getPublishedActivity.do', {}).then(res => {
+      console.log(res)
+    })
   }
 }
 </script>
