@@ -1,6 +1,6 @@
 <template>
   <div id="gameBody">
-    <p>倒计时: <span>30秒</span></p>
+    <p>倒计时: <span>{{time}}秒</span></p>
     <p>难度: <span>{{nowLevel}}</span></p>
     <div id="wrap">
       <div id="imgArea"></div>
@@ -16,16 +16,28 @@ export default {
     return {
       pg: null,
       gameParams: {
-        img: '/static/img/img4.jpg',
+        img: '/static/img/djr.jpg',
         level: this.$route.params.id,
         levelArr: [[3, 3], [4, 4], [5, 5]],
         suc: this.success
-      }
+      },
+      time: 120,
+      timeInit: null
     }
   },
   mounted () {
     this.pg = new PuzzleGame(this.gameParams)
     this.pg.complete = this.success
+    this.timeInit = setInterval(() => {
+      this.time--
+      console.log(this.time)
+      if (this.time <= 0) {
+        this.$router.push('/gameover')
+      }
+    }, 1000)
+  },
+  destroyed () {
+    clearInterval(this.timeInit)
   },
   computed: {
     nowLevel () {
@@ -35,9 +47,9 @@ export default {
   },
   methods: {
     success () {
+      clearInterval(this.timeInit)
       alert('恭喜您，成功完成本次游戏！')
-      // this.gameParams.level ++
-      // this.pg.init()
+      this.$router.push('/gameover')
     }
   }
 }
@@ -45,9 +57,8 @@ export default {
 
 <style lang="scss">
   #gameBody{
-    background-color: $master2;
     height: 100vh;
-    padding-top: 90px;
+    padding-top: 80px;
     p{
       color: #fff;
       font-size: 30px;
@@ -55,6 +66,7 @@ export default {
       text-indent: 35px;
       span{
         font-size: 48px;
+        text-indent: 10px;
       }
     }
   }
@@ -65,7 +77,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: 50px auto 0;
     #imgArea{
       width: 660px;
       height: 660px;

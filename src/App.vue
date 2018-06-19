@@ -3,39 +3,25 @@
     'spring': theme == 1,
     'summer': theme == 2,
     'autumn': theme == 3,
-    'winter': theme == 4
-  }">
-    <transition :name="transitionName">
-      <!-- <navigation> -->
-        <router-view class="Router">
-        </router-view>
-      <!-- </navigation> -->
-    </transition>
+    'winter': theme == 4,
+    'bg': $route.meta.isbg}">
+    <router-view></router-view>
   </div>
 </template>
 <script>
+import {getActivity, authLogin} from './plugins/api'
 export default {
   name: 'app',
   data () {
     return {
-      theme: 2,
-      transitionName: ''
+      theme: 1
     }
   },
   created () {
-    // this.$navigation.on('forward', (to, from) => {
-    //   this.transitionName = 'slide-left'
-    // })
-    // this.$navigation.on('back', (to, from) => {
-    //   this.transitionName = 'slide-right'
-    // })
-    // this.$navigation.on('replace', (to, from) => {
-    //   this.transitionName = ''
-    // })
-    // this.$http.post('api/dynamic/getList', {}).then(res => {
-    //   console.log(res)
-    // })
-    this.$http.get('/api/activity/getPublishedActivity.do', {}).then(res => {
+    getActivity().then(res => {
+      console.log(res)
+    })
+    authLogin({userId: '734', userName: 'abcd'}).then(res => {
       console.log(res)
     })
   }
@@ -43,28 +29,17 @@ export default {
 </script>
 
 <style lang="scss">
+body,html{
+  height: 100%;
+}
 #app {
   width: 750px;
   margin: 0 auto;
   height: 100%;
   position: relative;
 }
-.Router {
-  position: absolute;
-  width: 100%;
-  transition: all 0.4s ease;
-}
-
-.slide-left-enter,
-.slide-right-leave-active {
-  opacity: 0;
-  -webkit-transform: translate(100%, 0);
-  transform: translate(100%, 0);
-}
-.slide-right-enter,
-.slide-left-leave-active {
-  opacity: 0;
-  -webkit-transform: translate(-100%, 0);
-  transform: translate(-100% 0);
+.bg{
+  background-image: url('./assets/img/m-bg.png');
+  background-repeat: repeat;
 }
 </style>

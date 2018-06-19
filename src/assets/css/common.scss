@@ -28,10 +28,9 @@ body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, d
   border: none;
 }
 body {
-  font: 14px 'Microsoft YaHei', Arial, sans-serif;
+  font: 24px 'Microsoft YaHei', Arial, sans-serif;
   font-family:"PingFang SC", "Microsoft YaHei", 微软雅黑, "Helvetica Neue", Helvetica,  "Hiragino Sans GB", Arial, sans-serif;
-  color: #666;
-  background-color: #f8f8f8;
+  color: #333;
   margin: 0 auto;
 }
 em, i {
@@ -81,21 +80,6 @@ img {
 div, img, ul, li, input{
   box-sizing: border-box;
 }
-// 字体图标
-@font-face {
-  font-family: 'iconfont';  /* project id 602598 */
-  src: url('//at.alicdn.com/t/font_602598_ncuvwllikx0z4cxr.eot');
-  src: url('//at.alicdn.com/t/font_602598_ncuvwllikx0z4cxr.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_602598_ncuvwllikx0z4cxr.woff') format('woff'),
-  url('//at.alicdn.com/t/font_602598_ncuvwllikx0z4cxr.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_602598_ncuvwllikx0z4cxr.svg#iconfont') format('svg');
-}
-.iconfont{
-  font-family:"iconfont" !important;
-  font-size:16px;font-style:normal;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;}
 // 加载中
 .loading{
   background: rgba(255,255,255,0.5);
@@ -106,22 +90,89 @@ div, img, ul, li, input{
   left: 0;
   top: 0;
 }
-// 头部
-.mint-header{
-  background-color: #fff;
-  color: #333;
-  height:80px;
-  font-size: 32px;
-  .mint-button-icon{
-    .mintui{
-      font-size: 36px;
-    }
-  }
-}
 // $msg
 .msg{
   z-index: 8888;
   .mint-toast-text{
     font-size: 26px;
+  }
+}
+.btn{
+  display: block;
+  width: 439px;
+  height: 107px;
+  margin: 0 auto;
+  border-radius: 42px;
+  box-shadow: none;
+}
+.closeBtn{
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  position: absolute;
+  right: 22px;
+  top: 22px;
+}
+.scrollbar{
+  overflow: auto;height: 100%;
+  overflow-y: auto; 
+  padding-right: 20px;
+}
+.scrollbar::-webkit-scrollbar-track-piece {  
+  background-color:#dfdfdf;  
+  border-left: 1px solid rgba(0, 0, 0, 0);  
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;
+}  
+.scrollbar::-webkit-scrollbar {  
+  width: 22px;  
+  height: 290px;  
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;
+}  
+.scrollbar::-webkit-scrollbar-thumb {   
+  background-clip: padding-box;  
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;  
+  height: 90px;  
+}  
+.scrollbar::-webkit-scrollbar-thumb:hover {  
+  opacity: .5; 
+  -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;  
+  border-radius: 10px;  
+}
+// 次数不够弹层
+.timesPopup{
+  width: 620px;
+  height: 410px;
+  border-radius: 20px;
+  background-color: #fff;
+  margin-top: -42px;
+  &:after{
+    content: '';
+    width: 303px;
+    height: 303px;
+    background: #fff url(../../assets/img/m-icon.png) no-repeat center 35px;
+    border-radius: 50%;
+    position: absolute;
+    top: -78px;
+    line-height: 303px;
+    left: 159px;
+    z-index: -1;
+  }
+  .tips{
+    color: #333333;
+    font-size: 36px;
+    line-height: 48px;
+    text-align: center;
+    margin-top: 115px;
+  }
+  .backHome{
+    margin: 35px auto 0;
   }
 }

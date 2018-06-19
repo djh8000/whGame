@@ -1,10 +1,10 @@
 <template>
   <div class="mainIndex">
-  	<div class="game1"></div>
-  	<div class="game2"></div>
+  	<router-link class="game1" to="/know"></router-link>
+  	<router-link class="game2" to="/puzzle"></router-link>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 	body,html{
 		width: 100%;
 		height: 100%;

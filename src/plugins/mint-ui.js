@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import {
-  Header,
   Button,
   Toast,
   Popup,
@@ -9,9 +8,7 @@ import {
   Actionsheet} from 'mint-ui'
 
 export default (() => {
-  // header
-  Vue.component(Header.name, Header)
-  // button
+  // 按钮
   Vue.component(Button.name, Button)
   // 弹出框组件
   Vue.component(Popup.name, Popup)
