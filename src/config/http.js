@@ -8,8 +8,23 @@ axios.defaults.baseURL = Url.api
 axios.defaults.headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 axios.defaults.timeout = 10000
 
-axios.interceptors.response.use(function (response) {
+axios.interceptors.request.use(config => {
+  if (config.method === 'get') {
+    config.params.token = window.vm.$store.getters.getToken
+  } else if (config.method === 'post') {
+    config.data = qs.stringify(config.data)
+  }
+  return config
+}, function (error) {
+  // 当响应异常时做一些处理
+  return Promise.reject(error)
+})
+
+axios.interceptors.response.use(response => {
   if (Number(response.data.code) === 1000) {
+    if (response.data.token) {
+      window.vm.$store.commit('setToken', response.data.token)
+    }
     return response.data
   } else if (Number(response.data.code === 2000)) {
     window.vm.$msg(response.data.msg)
@@ -26,24 +41,19 @@ axios.interceptors.response.use(function (response) {
 export default {
   prodata (data, type) {
     var pubdata = {
-      'userId': cookie.userId(),
-      'token': cookie.token(),
+      userId: '1',
+      userName: 'djh',
       ...data
     }
     return pubdata
   },
   post (url, data, isLogin) {
-    // if (isLogin && cookie.get('ssotoken') == null) {
-    //   let URL = window.location.href
-    //   window.location.href = Url.uchttp + '?fromUrl=' + URL + '&channel=1'
-    //   return false
-    // }
     var Data = this.prodata(data)
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
         url,
-        data: qs.stringify(Data, {arrayFormat: 'brackets'})
+        data: Data
       }).then(data => resolve(data)).catch(error => {
         console.warn('返回错误', error)
       })

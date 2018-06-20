@@ -18,11 +18,11 @@ export default {
     }
   },
   created () {
-    getActivity().then(res => {
-      console.log(res)
-    })
-    authLogin({userId: '734', userName: 'abcd'}).then(res => {
-      console.log(res)
+    authLogin().then(res => {
+      getActivity().then(res => {
+        // console.log(res)
+        this.$store.commit('setActivity', res.data)
+      })
     })
   }
 }

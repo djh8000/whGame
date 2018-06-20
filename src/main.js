@@ -7,8 +7,6 @@ import store from './vuex'
 import http from './config/http'
 import cookie from './plugins/cookie'
 import FastClick from 'fastclick'
-// import Navigation from 'vue-navigation'
-// import 'lib-flexible/flexible.js'
 import './plugins/mint-ui'
 import './assets/css/common.scss'
 import './assets/css/theme.scss'
@@ -16,6 +14,7 @@ import './assets/css/theme.scss'
 FastClick.attach(document.body)
 Vue.prototype.$cookie = cookie
 Vue.prototype.$http = http
+Vue.prototype.$token = '123'
 // Vue.use(Navigation, {router})
 Vue.config.productionTip = false
 
