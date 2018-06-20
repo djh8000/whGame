@@ -5,13 +5,11 @@
 		background: url(../img/bg1-1.png) no-repeat center;
 		background-size: 100% 100%;
 	}
-	.mainIndex .game1{
+	.mainIndex .game{
 		background: url(../img/btn1-1.png) no-repeat center;
 		background-size: 100% 100%;
-	}
-	.mainIndex .game2{
-		background: url(../img/btn1-2.png) no-repeat center;
-		background-size: 100% 100%;
+		-webkit-text-stroke: 3px #7a9707; //春 冬 6ca3ff 秋 e51b00 夏e55c00
+
 	}
   background-color:  $mColor1;
   /* 答题首页 */

@@ -1,29 +1,41 @@
 <template>
   <div class="mainIndex">
-  	<router-link class="game1" to="/know"></router-link>
-  	<router-link class="game2" to="/puzzle"></router-link>
+  	<div class="enterBtnWrap">
+  		<router-link class="game" to="/know">知识问答知识问答</router-link>
+  		<router-link class="game" to="/puzzle">趣味拼图</router-link>
+  	</div>
+  	<p class="brand">文化嘉定云</p>
   </div>
 </template>
 <style lang="scss" scoped>
-	body,html{
-		width: 100%;
-		height: 100%;
-	}
 	.mainIndex{
 		width: 750px;
-		height: 100%;
+		min-height: 100vh;
 		margin: 0 auto;
 		position: relative;
-		.game1,.game2{
+		overflow: hidden;
+		.enterBtnWrap{
+			margin-top: 700px;
+		}
+		.game{
+			display: block;
 			width: 439px;
 			height: 107px;
-			position: absolute;
-			left: 50%;
-			margin-left: -218px;
-			bottom: 495px;
+			margin: 0 auto 40px;
+			font-size: 48px;
+			font-weight: bold;
+			text-align: center;
+			line-height: 96px;
+			color: #fff;
+			font-family: "微软雅黑";
+			letter-spacing: 5px;
+			overflow: hidden;
 		}
-		.game2{
-			bottom: 345px;
+		.brand{
+			font-size: 22px;
+			color: #fff;
+			text-align: center;
+			margin: 110px 0;
 		}
 	}
 </style>

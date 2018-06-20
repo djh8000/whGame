@@ -14,9 +14,9 @@
 </script>
 <style lang="scss" scoped>
 	.gameover{
-		height: 100vh;
+		min-height: 100vh;
     background: url('../assets/img/m-bg3.png') center bottom no-repeat;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     .overImg{
     	margin: 122px auto 0;

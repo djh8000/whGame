@@ -102,8 +102,8 @@
 
 <style lang="scss" scoped>
   .puzzleHome{
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow: auto;
     position: relative;
     .title{
       display: block;
@@ -117,12 +117,11 @@
       justify-content: center;
       align-items: center;
       .scroll{
-        width:480px;
+        width:460px;
         height:360px;
-        overflow-y: auto;
         font-size: 28px;
         p{
-          width: 460px;
+          text-align: justify;
           margin: 15px 0;
           line-height: 1.3;
         }

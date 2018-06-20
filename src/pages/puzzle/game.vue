@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss">
   #gameBody{
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 80px;
     p{
       color: #fff;

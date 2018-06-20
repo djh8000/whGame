@@ -30,9 +30,9 @@
 
 <style lang="scss" scoped>
   .knowIndex{
-    height: 100vh;
+    min-height: 100vh;
     background: url('../../assets/img/m-bg2.png') center bottom no-repeat;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     .mainTit{
       width: 428px;
@@ -69,6 +69,7 @@
     }
     .scoreBtn{
       margin-top: 30px;
+      margin-bottom: 50px;
     }
   }
 </style>

@@ -23,9 +23,9 @@
 </script>
 <style lang="scss" scoped>
 	.scoreWrap{
-		height: 100vh;
+		min-height: 100vh;
     background: url('../assets/img/m-bg3.png') center bottom no-repeat;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     .userInfo{
       width: 110px;
@@ -94,6 +94,7 @@
     }
     .backHome{
       margin-top: 35px;
+      margin-bottom: 30px;
     }
 	}
 </style>
