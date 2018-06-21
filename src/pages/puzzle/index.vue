@@ -51,7 +51,7 @@
 </template>
 
 <script>
-  import {getGameInfo, authLogin, getGameTimes } from '../../plugins/api'
+  import {getGameInfo, authLogin, getGameTimes} from '../../plugins/api'
   export default {
     name: 'puzzle',
     data () {
@@ -61,7 +61,7 @@
         levelPopup: false,
         lookPopup: false,
         level: 0,
-        userId: 6,
+        userId: 10,
         userName: 'djh'
       }
     },
@@ -79,11 +79,12 @@
             gameMainId: this.gameInfo.gameMainId
           }
           getGameTimes(timesData).then(res => {
-            if (res.data.canPlay === 1) {
-              this.levelPopup = true
-            } else {
-              this.timesPopup = true
-            }
+            this.levelPopup = true
+            // if (res.data.canPlay === 1) {
+            //   this.levelPopup = true
+            // } else {
+            //   this.timesPopup = true
+            // }
           })
         })
       },
