@@ -19,7 +19,7 @@ export default new Router({
     },
     {
       name: 'puzzle',
-      path: '/puzzle',
+      path: '/puzzle/:id',
       component: puzzle,
       meta: {
         isbg: true
@@ -32,7 +32,7 @@ export default new Router({
     },
     {
       name: 'know',
-      path: '/know',
+      path: '/know/:id',
       component: know,
       meta: {
         isbg: true

@@ -9,17 +9,20 @@
   </div>
 </template>
 <script>
-import {getActivity} from './plugins/api'
+import {getActivity, authLogin} from './plugins/api'
 export default {
   name: 'app',
   data () {
     return {
-      theme: 0
+      theme: 1
     }
   },
   created () {
+    authLogin().then(res => {
+
+    })
     getActivity().then(res => {
-      this.theme = res.data.activity.themeTypeInt
+      // this.theme = res.data.activity.themeTypeInt
       this.$store.commit('setActivity', res.data)
     })
   }

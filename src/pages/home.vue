@@ -1,7 +1,7 @@
 <template>
   <div class="mainIndex">
     <div class="enterBtnWrap" v-if="activity">
-      <router-link class="game" :to="item.questionTypeInt == 1 ? '/know' : '/puzzle'" v-for="(item, index) in activity.gameList" :key="index">{{item.gameName}}</router-link>
+      <span class="game" @click="gameGo(item.questionTypeInt, item.gameMainId)" v-for="(item, index) in activity.gameList" :key="index">{{item.gameName}}</span>
     </div>
     <p class="brand">文化嘉定云</p>
   </div>
@@ -11,6 +11,18 @@
     computed: {
       activity () {
         return this.$store.state.activity
+      }
+    },
+    methods: {
+      gameGo (type, id) {
+        switch (type) {
+          case 1:
+            this.$router.push(`/know/${id}`)
+            break
+          case 2:
+            this.$router.push(`/puzzle/${id}`)
+            break
+        }
       }
     }
   }
