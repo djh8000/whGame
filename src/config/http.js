@@ -19,7 +19,6 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => {
-  console.log(response.headers)
   if (Number(response.data.code) === 1000) {
     if (response.headers['x-token-key']) {
       window.vm.$store.commit('setToken', response.headers['x-token-key'])

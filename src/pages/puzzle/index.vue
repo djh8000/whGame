@@ -31,13 +31,13 @@
     </mt-popup>
     <!-- 预览图片弹层 -->
     <mt-popup class="levelPopup lookPopup" v-model="lookPopup" popup-transition="popup-fade">
-      <i class="closeBtn" @click="lookPopup = false"></i>
+      <i class="closeBtn" @click="getImage"></i>
       <div class="img">
         <img src="/static/img/djr.jpg" alt="">
       </div>
       <p class="time">
         <span class="s1">预计倒计时:</span>
-        <span class="s2">{{time}}</span>
+        <span class="s2">{{gameInfo.gameViewTime}}</span>
         <span class="s3">S</span>
       </p>
       <mt-button class="btn" @click="goPlay"></mt-button>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-  import {getGameInfo, authLogin, getGameTimes} from '../../plugins/api'
+  import {getGameInfo, authLogin, getGameTimes } from '../../plugins/api'
   export default {
     name: 'puzzle',
     data () {
@@ -61,8 +61,7 @@
         levelPopup: false,
         lookPopup: false,
         level: 0,
-        time: 9,
-        userId: '3',
+        userId: 6,
         userName: 'djh'
       }
     },
@@ -88,13 +87,15 @@
           })
         })
       },
+      getImage () {
+
+      },
       lookBtn () {
         this.levelPopup = false
         this.lookPopup = true
         this.timeInit = setInterval(() => {
-          this.gameInfo.time--
-          console.log(this.time)
-          if (this.gameInfo.time === 0) {
+          this.gameInfo.gameViewTime--
+          if (this.gameInfo.gameViewTime === 0) {
             this.goPlay()
           }
         }, 1000)
@@ -102,7 +103,7 @@
       goPlay () {
         this.lookPopup = false
         this.$router.push(`/puzzle/play/${this.level}`)
-        this.time = 10
+        // this.time = 10
       }
     },
     destroyed () {

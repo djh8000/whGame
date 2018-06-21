@@ -30,7 +30,6 @@ export default {
     this.pg.complete = this.success
     this.timeInit = setInterval(() => {
       this.time--
-      console.log(this.time)
       if (this.time <= 0) {
         this.$router.push('/gameover')
       }
