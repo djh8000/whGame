@@ -1,4 +1,4 @@
-
+// 春
 .spring{
 	//首页
 	.mainIndex{
@@ -65,7 +65,9 @@
 		background: url(../../assets/img/btn2-6.png) no-repeat;
 	}
 }
+// 夏
 .summer{
+	//首页
 	.mainIndex{
 		background: url(../img/bg2-1.png) no-repeat center;
 		background-size: 100% 100%;
@@ -75,40 +77,191 @@
 		background-size: 100% 100%;
 		-webkit-text-stroke: 3px #e55c00; //春 冬 6ca3ff 秋 e51b00 夏e55c00
 	}
-	.mainIndex .game1{
-		background: url(../img/btn2-1.png) no-repeat center;
-		background-size: 100% 100%;
+  background-color:  $mColor2;
+  /* 答题首页 */
+  .knowIndex{
+  	.mainTit{
+  		background: url('../img/icon2-2.png')no-repeat;
+  	}
+  	.knowRole{
+      background-image: url(../../assets/img/icon2-3.png),url(../../assets/img/icon2-3.png);
+  	}
+  }
+  .scoreWrap{
+  	.scoreList{
+  		.item{
+  			background-color: $answer-color2;
+  			.dhBtn.high{
+  				border: 3px solid $question-color2;
+  				color: $mColor2;
+  				
+  			}
+  		}
+  	}
+  }
+	.scrollbar::-webkit-scrollbar-thumb {  
+		background-color:$answer-color2 ; 
 	}
-	.mainIndex .game2{
-		background: url(../img/btn2-2.png) no-repeat center;
-		background-size: 100% 100%;
+	//拼图首页
+	.puzzleHome{
+		background: url('../img/m-bg1.png') center bottom no-repeat;
+		.p-main{
+			background: url('../img/gz2-1.png') center center no-repeat;
+			.scroll{
+				color: $mColor2;
+			}
+		}
+	}
+	.actionBtn{
+		background: url('../img/btn2-4.png') center center no-repeat;
+	}
+	.scoreBtn{
+		background: url('../img/btn2-3.png') center center no-repeat;
+	}
+	.againBtn{
+		background: url('../img/btn2-8.png') center center no-repeat;
+	}
+	.shareBtn{
+		background: url('../img/btn2-9.png') center center no-repeat;
+	}
+	.closeBtn{
+		background: url('../img/close2-1.png') center center no-repeat;
+	}
+	.backHome{
+		background: url(../../assets/img/btn2-6.png) no-repeat;
 	}
 }
+// 秋
 .autumn{
+	//首页
 	.mainIndex{
 		background: url(../img/bg3-1.png) no-repeat center;
 		background-size: 100% 100%;
 	}
-	.mainIndex .game1{
+	.mainIndex .game{
 		background: url(../img/btn3-1.png) no-repeat center;
 		background-size: 100% 100%;
+		-webkit-text-stroke: 3px #e51b00; //春 冬 6ca3ff 秋 e51b00 夏e55c00
+
 	}
-	.mainIndex .game2{
-		background: url(../img/btn3-2.png) no-repeat center;
-		background-size: 100% 100%;
+  background-color:  $mColor3;
+  /* 答题首页 */
+  .knowIndex{
+  	.mainTit{
+  		background: url('../img/icon3-2.png')no-repeat;
+  	}
+  	.knowRole{
+      background-image: url(../../assets/img/icon3-3.png),url(../../assets/img/icon3-3.png);
+  	}
+  }
+  .scoreWrap{
+  	.scoreList{
+  		.item{
+  			background-color: $answer-color3;
+  			.dhBtn.high{
+  				border: 3px solid $question-color3;
+  				color: $mColor3;
+  				
+  			}
+  		}
+  	}
+  }
+	.scrollbar::-webkit-scrollbar-thumb {  
+		background-color:$answer-color3 ; 
+	}
+	//拼图首页
+	.puzzleHome{
+		background: url('../img/m-bg1.png') center bottom no-repeat;
+		.p-main{
+			background: url('../img/gz3-1.png') center center no-repeat;
+			.scroll{
+				color: $mColor3;
+			}
+		}
+	}
+	.actionBtn{
+		background: url('../img/btn2-4.png') center center no-repeat;
+	}
+	.scoreBtn{
+		background: url('../img/btn2-3.png') center center no-repeat;
+	}
+	.againBtn{
+		background: url('../img/btn2-8.png') center center no-repeat;
+	}
+	.shareBtn{
+		background: url('../img/btn2-9.png') center center no-repeat;
+	}
+	.closeBtn{
+		background: url('../img/close3-1.png') center center no-repeat;
+	}
+	.backHome{
+		background: url(../../assets/img/btn2-6.png) no-repeat;
 	}
 }
+// 冬
 .winter{
+	//首页
 	.mainIndex{
 		background: url(../img/bg4-1.png) no-repeat center;
 		background-size: 100% 100%;
 	}
-	.mainIndex .game1{
+	.mainIndex .game{
 		background: url(../img/btn4-1.png) no-repeat center;
 		background-size: 100% 100%;
+		-webkit-text-stroke: 3px #6ca3ff; //春 冬 6ca3ff 秋 e51b00 夏e55c00
+
 	}
-	.mainIndex .game2{
-		background: url(../img/btn4-2.png) no-repeat center;
-		background-size: 100% 100%;
+  background-color:  $mColor4;
+  /* 答题首页 */
+  .knowIndex{
+  	.mainTit{
+  		background: url('../img/icon4-2.png')no-repeat;
+  	}
+  	.knowRole{
+      background-image: url(../../assets/img/icon4-3.png),url(../../assets/img/icon4-3.png);
+  	}
+  }
+  .scoreWrap{
+  	.scoreList{
+  		.item{
+  			background-color: $answer-color4;
+  			.dhBtn.high{
+  				border: 3px solid $question-color4;
+  				color: $mColor4;
+  				
+  			}
+  		}
+  	}
+  }
+	.scrollbar::-webkit-scrollbar-thumb {  
+		background-color:$answer-color4 ; 
+	}
+	//拼图首页
+	.puzzleHome{
+		background: url('../img/m-bg1.png') center bottom no-repeat;
+		.p-main{
+			background: url('../img/gz4-1.png') center center no-repeat;
+			.scroll{
+				color: $mColor4;
+			}
+		}
+	}
+	.actionBtn{
+		background: url('../img/btn2-4.png') center center no-repeat;
+	}
+	.scoreBtn{
+		background: url('../img/btn2-3.png') center center no-repeat;
+	}
+	.againBtn{
+		background: url('../img/btn2-8.png') center center no-repeat;
+	}
+	.shareBtn{
+		background: url('../img/btn2-9.png') center center no-repeat;
+	}
+	.closeBtn{
+		background: url('../img/close4-1.png') center center no-repeat;
+	}
+	.backHome{
+		background: url(../../assets/img/btn2-6.png) no-repeat;
 	}
 }
