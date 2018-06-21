@@ -10,7 +10,7 @@ axios.defaults.timeout = 10000
 
 axios.interceptors.request.use(config => {
   if (window.vm.$store.getters.getToken) {
-    config.headers['X-Token-Key'] = window.vm.$store.getters.getToken
+    config.headers['x-token-key'] = window.vm.$store.getters.getToken
   }
   return config
 }, function (error) {
@@ -38,33 +38,23 @@ axios.interceptors.response.use(response => {
 })
 
 export default {
-  prodata (data, type) {
-    var pubdata = {
-      userId: '1',
-      userName: 'djh',
-      ...data
-    }
-    return pubdata
-  },
   post (url, data, isLogin) {
-    var Data = this.prodata(data)
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
         url,
-        data: qs.stringify(Data)
+        data: qs.stringify(data)
       }).then(data => resolve(data)).catch(error => {
         console.warn('返回错误', error)
       })
     })
   },
   get (url, params) {
-    var Data = this.prodata(params)
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
         url,
-        params: Data // get 请求时带的参数
+        params: params // get 请求时带的参数
       }).then(data => resolve(data)).catch(error => {
         console.warn('返回错误', error)
       })

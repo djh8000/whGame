@@ -1,16 +1,10 @@
 <template>
-  <div class="puzzleHome">
+  <div class="puzzleHome" v-if="gameInfo">
     <img class="title" src="../../assets/img/icon2-1.png" alt="">
     <div class="p-main">
-      <div class="scroll scrollbar">
-        <p>1.规则规则规则规则规则规则规则规则</p>
-        <p>2.规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则</p>
-        <p>3.规则规则规则规则规则规则规则规则</p>
-        <p>4.规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则</p>
-        <p>5.规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则</p>
-      </div>
+      <div class="scroll scrollbar" v-html="gameInfo.gameRule"></div>
     </div>
-    <mt-button class="btn actionBtn" @click="levelPopup = true"></mt-button>
+    <mt-button class="btn actionBtn" @click="gameStart"></mt-button>
     <router-link class="btn scoreBtn" to="/"></router-link>
     <!-- 难度选择弹层 -->
     <mt-popup class="levelPopup" v-model="levelPopup" popup-transition="popup-fade">
@@ -57,26 +51,50 @@
 </template>
 
 <script>
+  import {getGameInfo, authLogin, getGameTimes} from '../../plugins/api'
   export default {
     name: 'puzzle',
     data () {
       return {
+        gameInfo: null,
         timesPopup: false,
         levelPopup: false,
         lookPopup: false,
         level: 0,
         time: 9,
-        timeInit: null
+        userId: '3',
+        userName: 'djh'
       }
     },
+    mounted () {
+      getGameInfo({id: this.$route.params.id}).then(res => {
+        this.gameInfo = res.data.gameInfo
+      })
+    },
     methods: {
+      gameStart () {
+        authLogin({userId: this.userId, userName: this.userName}).then(res => {
+          let timesData = {
+            userId: this.userId,
+            activityId: this.$store.state.activity.activity.activityId,
+            gameMainId: this.gameInfo.gameMainId
+          }
+          getGameTimes(timesData).then(res => {
+            if (res.data.canPlay === 1) {
+              this.levelPopup = true
+            } else {
+              this.timesPopup = true
+            }
+          })
+        })
+      },
       lookBtn () {
         this.levelPopup = false
         this.lookPopup = true
         this.timeInit = setInterval(() => {
-          this.time--
+          this.gameInfo.time--
           console.log(this.time)
-          if (this.time === 0) {
+          if (this.gameInfo.time === 0) {
             this.goPlay()
           }
         }, 1000)
