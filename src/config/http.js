@@ -9,10 +9,8 @@ axios.defaults.headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 axios.defaults.timeout = 10000
 
 axios.interceptors.request.use(config => {
-  if (config.method === 'get') {
-    config.params.token = window.vm.$store.getters.getToken
-  } else if (config.method === 'post') {
-    config.data = qs.stringify(config.data)
+  if (localStorage.getItem('token')) {
+    config.headers['X-Token-Key'] = localStorage.getItem('token')
   }
   return config
 }, function (error) {
@@ -22,8 +20,9 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(response => {
   if (Number(response.data.code) === 1000) {
-    if (response.data.token) {
-      window.vm.$store.commit('setToken', response.data.token)
+    if (response.headers['X-Token-Key']) {
+      // window.vm.$store.commit('setToken', response.data.token)
+      localStorage.setItem('token', response.headers['X-Token-Key'])
     }
     return response.data
   } else if (Number(response.data.code === 2000)) {
@@ -53,7 +52,7 @@ export default {
       axios({
         method: 'post',
         url,
-        data: Data
+        data: qs.stringify(Data)
       }).then(data => resolve(data)).catch(error => {
         console.warn('返回错误', error)
       })
