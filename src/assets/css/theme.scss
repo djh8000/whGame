@@ -33,6 +33,35 @@
   		}
   	}
   }
+  .knowWrap{
+  	.knowMain{
+  		background-image: url(../../assets/img/icon1-3.png),url(../../assets/img/icon1-3.png);
+  		border-bottom: 10px solid rgba($mColor1,.6);
+  	}
+  	.userInfo{
+  		.info p:first-child{
+  			color: $question-color1;
+  		}
+  		.col{
+  			color: $question-color1;
+  		}
+  		.time{
+  			border-color: $mColor1;
+  			color: $question-color1;
+  		}
+  	}
+  	.question{
+  		.subject{
+  			color: $question-color1;
+  		}
+  		.select{
+  			li{
+  				border-color: $answer-color1;
+  				color: $answer-color1;
+  			}
+  		}
+  	}
+  }
 	.scrollbar::-webkit-scrollbar-thumb {  
 		background-color:$answer-color1 ; 
 	}
@@ -95,6 +124,35 @@
   				border: 3px solid $question-color2;
   				color: $mColor2;
   				
+  			}
+  		}
+  	}
+  }
+  .knowWrap{
+  	.knowMain{
+  		background-image: url(../../assets/img/icon2-3.png),url(../../assets/img/icon2-3.png);
+  		border-bottom: 10px solid rgba($mColor2,.6);
+  	}
+  	.userInfo{
+  		.info p:first-child{
+  			color: $question-color2;
+  		}
+  		.col{
+  			color: $question-color2;
+  		}
+  		.time{
+  			border-color: $mColor2;
+  			color: $question-color2;
+  		}
+  	}
+  	.question{
+  		.subject{
+  			color: $question-color2;
+  		}
+  		.select{
+  			li{
+  				border-color: $answer-color2;
+  				color: $answer-color2;
   			}
   		}
   	}
@@ -166,6 +224,35 @@
   		}
   	}
   }
+  .knowWrap{
+  	.knowMain{
+  		background-image: url(../../assets/img/icon3-3.png),url(../../assets/img/icon3-3.png);
+  		border-bottom: 10px solid rgba($mColor3,.6);
+  	}
+  	.userInfo{
+  		.info p:first-child{
+  			color: $question-color3;
+  		}
+  		.col{
+  			color: $question-color3;
+  		}
+  		.time{
+  			border-color: $mColor3;
+  			color: $question-color3;
+  		}
+  	}
+  	.question{
+  		.subject{
+  			color: $question-color3;
+  		}
+  		.select{
+  			li{
+  				border-color: $answer-color3;
+  				color: $answer-color3;
+  			}
+  		}
+  	}
+  }
 	.scrollbar::-webkit-scrollbar-thumb {  
 		background-color:$answer-color3 ; 
 	}
@@ -229,6 +316,35 @@
   				border: 3px solid $question-color4;
   				color: $mColor4;
   				
+  			}
+  		}
+  	}
+  }
+  .knowWrap{
+  	.knowMain{
+  		background-image: url(../../assets/img/icon4-3.png),url(../../assets/img/icon4-3.png);
+  		border-bottom: 10px solid rgba($mColor4,.6);
+  	}
+  	.userInfo{
+  		.info p:first-child{
+  			color: $question-color4;
+  		}
+  		.col{
+  			color: $question-color4;
+  		}
+  		.time{
+  			border-color: $mColor4;
+  			color: $question-color4;
+  		}
+  	}
+  	.question{
+  		.subject{
+  			color: $question-color4;
+  		}
+  		.select{
+  			li{
+  				border-color: $answer-color4;
+  				color: $answer-color4;
   			}
   		}
   	}

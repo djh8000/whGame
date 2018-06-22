@@ -41,7 +41,7 @@ export default new Router({
     },
     {
       name: 'knowPlay',
-      path: '/know/play',
+      path: '/knowplay',
       component: knowgame
     },
     {
