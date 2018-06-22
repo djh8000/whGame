@@ -29,19 +29,6 @@
       </ul>
       <mt-button class="btn" @click="lookBtn"></mt-button>
     </mt-popup>
-    <!-- 预览图片弹层 -->
-    <mt-popup class="levelPopup lookPopup" v-model="lookPopup" popup-transition="popup-fade">
-      <i class="closeBtn" @click="getImage"></i>
-      <div class="img">
-        <img src="/static/img/djr.jpg" alt="">
-      </div>
-      <p class="time">
-        <span class="s1">预计倒计时:</span>
-        <span class="s2">{{gameInfo.gameViewTime}}</span>
-        <span class="s3">S</span>
-      </p>
-      <mt-button class="btn" @click="goPlay"></mt-button>
-    </mt-popup>
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
       <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>
@@ -59,7 +46,6 @@
         gameInfo: null,
         timesPopup: false,
         levelPopup: false,
-        lookPopup: false,
         level: 0,
         userId: 10,
         userName: 'djh'
@@ -88,33 +74,9 @@
           })
         })
       },
-      getImage () {
-
-      },
       lookBtn () {
         this.levelPopup = false
-        this.lookPopup = true
-        this.timeInit = setInterval(() => {
-          this.gameInfo.gameViewTime--
-          if (this.gameInfo.gameViewTime === 0) {
-            this.goPlay()
-          }
-        }, 1000)
-      },
-      goPlay () {
-        this.lookPopup = false
-        this.$router.push(`/puzzle/play/${this.level}`)
-        // this.time = 10
-      }
-    },
-    destroyed () {
-      clearInterval(this.timeInit)
-    },
-    watch: {
-      lookPopup (val) {
-        if (!val) {
-          clearInterval(this.timeInit)
-        }
+        this.$router.push(`/puzzle/play/${this.level + 3}`)
       }
     }
   }
@@ -198,37 +160,6 @@
       .btn{
         background: url('../../assets/img/btn2-5.png') center center no-repeat;
         margin-top: 60px;
-      }
-    }
-    .lookPopup{
-      .img{
-        width: 375px;
-        height: 375px;
-        border: solid 1px #b6b6b6;
-        padding: 14px;
-        margin: 88px auto 0;
-        img{
-          width: 100%;
-        }
-      }
-      .time{
-        text-align: center;
-        margin-bottom: 35px;
-        .s1{
-          font-size: 36px;
-          letter-spacing: 2px;
-        }
-        .s2{
-          font-size: 48px;
-          color: #fe4800;
-        }
-        .s3{
-          font-size: 30px;
-        }
-      }
-      .btn{
-        background: url('../../assets/img/btn2-4.png') center center no-repeat;
-        margin-top: 0;
       }
     }
   }
