@@ -9,7 +9,7 @@
     <mt-popup class="levelPopup lookPopup" v-model="lookPopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="lookPopup = !lookPopup"></i>
       <div class="img">
-        <img src="/static/img/djr.jpg" alt="">
+        <img src="/static/img/img1.jpg" alt="">
       </div>
       <p class="time">
         <span class="s1">预计倒计时:</span>
@@ -23,24 +23,28 @@
 
 <script>
 import PuzzleGame from '../../plugins/game'
+import {getGamePlay} from '../../plugins/api'
 export default {
   name: 'home',
   data () {
     return {
       pg: null,
       gameParams: {
-        img: '/static/img/djr.jpg',
-        level: this.$route.params.id - 3,
+        img: '/static/img/img1.jpg',
+        level: 0,
         levelArr: [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9], [10, 10]],
         suc: this.success
       },
-      time: 10,
+      time: 120,
       timeInit: null,
       lookPopup: true,
       lookTime: 30
     }
   },
   mounted () {
+    getGamePlay({gameMainId: this.$route.params.id}).then(res => {
+      console.log(res)
+    })
     this.pg = new PuzzleGame(this.gameParams)
     this.pg.complete = this.success
     this.timeInit = setInterval(() => {

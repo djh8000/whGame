@@ -5,9 +5,9 @@
       <div class="scroll scrollbar" v-html="gameInfo.gameRule"></div>
     </div>
     <mt-button class="btn actionBtn" @click="gameStart"></mt-button>
-    <router-link class="btn scoreBtn" to="/"></router-link>
+    <router-link class="btn scoreBtn" to="/scorelist"></router-link>
     <!-- 难度选择弹层 -->
-    <mt-popup class="levelPopup" v-model="levelPopup" popup-transition="popup-fade">
+    <!-- <mt-popup class="levelPopup" v-model="levelPopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="levelPopup = false"></i>
       <div class="img">
         <img :src="require(`../../assets/img/level${level}.png`)" alt="">
@@ -28,7 +28,7 @@
         </li>
       </ul>
       <mt-button class="btn" @click="lookBtn"></mt-button>
-    </mt-popup>
+    </mt-popup> -->
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
       <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>
@@ -45,7 +45,7 @@
       return {
         gameInfo: null,
         timesPopup: false,
-        levelPopup: false,
+        // levelPopup: false,
         level: 0,
         userId: 10,
         userName: 'djh'
@@ -65,7 +65,8 @@
             gameMainId: this.gameInfo.gameMainId
           }
           getGameTimes(timesData).then(res => {
-            this.levelPopup = true
+            // this.levelPopup = true
+            this.$router.push(`/puzzle/play/${this.$route.params.id}`)
             // if (res.data.canPlay === 1) {
             //   this.levelPopup = true
             // } else {
@@ -75,7 +76,7 @@
         })
       },
       lookBtn () {
-        this.levelPopup = false
+        // this.levelPopup = false
         this.$router.push(`/puzzle/play/${this.level + 3}`)
       }
     }

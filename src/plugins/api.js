@@ -16,4 +16,8 @@ export const getGameInfo = params => {
 export const getGameTimes = params => {
   return http.get('/api/activity/getGamePlayTimes.do', params)
 }
+// 开始游戏
+export const getGamePlay = params => {
+  return http.get('/api/activity/getGameDetailByMainId.do', params)
+}
 /* -----↓↓↓↓登录权限接口↓↓↓↓----- */

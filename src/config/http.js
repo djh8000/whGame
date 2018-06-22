@@ -9,8 +9,8 @@ axios.defaults.headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 axios.defaults.timeout = 10000
 
 axios.interceptors.request.use(config => {
-  if (window.vm.$store.getters.getToken) {
-    config.headers['x-token-key'] = window.vm.$store.getters.getToken
+  if (localStorage.getItem('token')) {
+    config.headers['x-token-key'] = localStorage.getItem('token')
   }
   return config
 }, function (error) {
@@ -21,7 +21,8 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   if (Number(response.data.code) === 1000) {
     if (response.headers['x-token-key']) {
-      window.vm.$store.commit('setToken', response.headers['x-token-key'])
+      localStorage.setItem('token', response.headers['x-token-key'])
+      // window.vm.$store.commit('setToken', response.headers['x-token-key'])
     }
     return response.data
   } else if (Number(response.data.code === 2000)) {
