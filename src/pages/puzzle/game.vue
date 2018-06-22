@@ -5,6 +5,19 @@
     <div id="wrap">
       <div id="imgArea"></div>
     </div>
+    <!-- 预览图片弹层 -->
+    <mt-popup class="levelPopup lookPopup" v-model="lookPopup" popup-transition="popup-fade">
+      <i class="closeBtn" @click="lookPopup = !lookPopup"></i>
+      <div class="img">
+        <img src="/static/img/djr.jpg" alt="">
+      </div>
+      <p class="time">
+        <span class="s1">预计倒计时:</span>
+        <span class="s2">{{lookTime}}</span>
+        <span class="s3">S</span>
+      </p>
+      <mt-button class="btn" @click="play"></mt-button>
+    </mt-popup>
   </div>
 </template>
 
@@ -17,12 +30,14 @@ export default {
       pg: null,
       gameParams: {
         img: '/static/img/djr.jpg',
-        level: this.$route.params.id,
-        levelArr: [[3, 3], [4, 4], [5, 5]],
+        level: this.$route.params.id - 3,
+        levelArr: [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9], [10, 10]],
         suc: this.success
       },
-      time: 120,
-      timeInit: null
+      time: 10,
+      timeInit: null,
+      lookPopup: true,
+      lookTime: 30
     }
   },
   mounted () {
@@ -32,6 +47,7 @@ export default {
       this.time--
       if (this.time <= 0) {
         this.$router.push('/gameover')
+        // this.pg = new PuzzleGame(this.gameParams)
       }
     }, 1000)
   },
@@ -45,6 +61,9 @@ export default {
     }
   },
   methods: {
+    play () {
+
+    },
     success () {
       clearInterval(this.timeInit)
       alert('恭喜您，成功完成本次游戏！')
@@ -66,6 +85,43 @@ export default {
       span{
         font-size: 48px;
         text-indent: 10px;
+      }
+    }
+    .lookPopup{
+      width: 620px;
+      height: 770px;
+      background-color: #ffffff;
+      border-radius: 24px;
+      padding: 0 50px;
+      .img{
+        width: 375px;
+        height: 375px;
+        border: solid 1px #b6b6b6;
+        padding: 14px;
+        margin: 88px auto 0;
+        img{
+          width: 100%;
+        }
+      }
+      .time{
+        text-align: center;
+        margin-bottom: 35px;
+        color: #333;
+        .s1{
+          font-size: 36px;
+          letter-spacing: 2px;
+        }
+        .s2{
+          font-size: 48px;
+          color: #fe4800;
+        }
+        .s3{
+          font-size: 30px;
+        }
+      }
+      .btn{
+        background: url('../../assets/img/btn2-4.png') center center no-repeat;
+        margin-top: 0;
       }
     }
   }
@@ -96,7 +152,7 @@ export default {
         transition-timing-function:ease-in-out;
       }
     }   
-  } 
+  }
 </style>
 
 
