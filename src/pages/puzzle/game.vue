@@ -6,8 +6,8 @@
       <div id="imgArea"></div>
     </div>
     <!-- 预览图片弹层 -->
-    <mt-popup class="levelPopup lookPopup" v-model="lookPopup" popup-transition="popup-fade">
-      <i class="closeBtn" @click="lookPopup = !lookPopup"></i>
+    <mt-popup class="levelPopup lookPopup" v-model="lookPopup" :closeOnClickModal="false" popup-transition="popup-fade">
+      <i class="closeBtn" @click="Play"></i>
       <div class="img">
         <img src="/static/img/img1.jpg" alt="">
       </div>
@@ -16,7 +16,7 @@
         <span class="s2">{{lookTime}}</span>
         <span class="s3">S</span>
       </p>
-      <mt-button class="btn" @click="play"></mt-button>
+      <mt-button class="btn" @click="Play"></mt-button>
     </mt-popup>
   </div>
 </template>
@@ -36,24 +36,16 @@ export default {
         suc: this.success
       },
       time: 120,
-      timeInit: null,
       lookPopup: true,
       lookTime: 30
     }
   },
   mounted () {
     getGamePlay({gameMainId: this.$route.params.id}).then(res => {
-      console.log(res)
+      this.pg = new PuzzleGame(this.gameParams)
+      this.pg.imgSplit()
+      this.lookInit()
     })
-    this.pg = new PuzzleGame(this.gameParams)
-    this.pg.complete = this.success
-    this.timeInit = setInterval(() => {
-      this.time--
-      if (this.time <= 0) {
-        this.$router.push('/gameover')
-        // this.pg = new PuzzleGame(this.gameParams)
-      }
-    }, 1000)
   },
   destroyed () {
     clearInterval(this.timeInit)
@@ -65,13 +57,40 @@ export default {
     }
   },
   methods: {
-    play () {
-
+    Play () {
+      this.lookPopup = false
+      this.pg.gameState()
+      this.timeStart()
+    },
+    timeStart () {
+      this.timeInit = setInterval(() => {
+        this.time--
+        if (this.time <= 0) {
+          this.$router.push('/gameover')
+        }
+      }, 1000)
+    },
+    lookInit () {
+      this.timeInit1 = setInterval(() => {
+        this.lookTime--
+        if (this.lookTime <= 0) {
+          this.Play()
+        }
+      }, 1000)
     },
     success () {
       clearInterval(this.timeInit)
       alert('恭喜您，成功完成本次游戏！')
       this.$router.push('/gameover')
+    }
+  },
+  watch: {
+    lookPopup (status) {
+      if (status) {
+        this.lookInit()
+      } else {
+        clearInterval(this.timeInit1)
+      }
     }
   }
 }

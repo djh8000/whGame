@@ -5,7 +5,7 @@
       <div class="scroll scrollbar" v-html="gameInfo.gameRule"></div>
     </div>
     <mt-button class="btn actionBtn" @click="gameStart"></mt-button>
-    <router-link class="btn scoreBtn" to="/scorelist"></router-link>
+    <router-link class="btn scoreBtn" to="/score"></router-link>
     <!-- 难度选择弹层 -->
     <!-- <mt-popup class="levelPopup" v-model="levelPopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="levelPopup = false"></i>
@@ -58,6 +58,10 @@
     },
     methods: {
       gameStart () {
+        this.$Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
         authLogin({userId: this.userId, userName: this.userName}).then(res => {
           let timesData = {
             userId: this.userId,
@@ -65,6 +69,7 @@
             gameMainId: this.gameInfo.gameMainId
           }
           getGameTimes(timesData).then(res => {
+            this.$Indicator.close()
             // this.levelPopup = true
             this.$router.push(`/puzzle/play/${this.$route.params.id}`)
             // if (res.data.canPlay === 1) {

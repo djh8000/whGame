@@ -16,7 +16,7 @@ export default (() => {
   Vue.component(Spinner.name, Spinner)
   // 底部弹框
   Vue.component(Actionsheet.name, Actionsheet)
-  Vue.prototype.$loading = Indicator
+  Vue.prototype.$Indicator = Indicator
   Vue.prototype.$msg = function (msg) {
     Toast({
       className: 'msg',

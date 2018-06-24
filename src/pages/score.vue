@@ -18,6 +18,16 @@
   </div>
 </template>
 <script>
+  export default {
+    data () {
+      return {
+        list: []
+      }
+    },
+    mounted () {
+  
+    }
+  }
 </script>
 <style lang="scss" scoped>
 	.scoreWrap{
