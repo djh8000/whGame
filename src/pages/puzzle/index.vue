@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import {getGameInfo, authLogin, getGameTimes} from '../../plugins/api'
+  import {getGameInfo, authLogin} from '../../plugins/api'
   export default {
     name: 'puzzle',
     data () {
@@ -47,7 +47,7 @@
         timesPopup: false,
         // levelPopup: false,
         level: 0,
-        userId: 10,
+        userId: 1,
         userName: 'djh'
       }
     },
@@ -62,22 +62,17 @@
           text: '加载中...',
           spinnerType: 'fading-circle'
         })
-        authLogin({userId: this.userId, userName: this.userName}).then(res => {
-          let timesData = {
-            userId: this.userId,
-            activityId: this.$store.state.activity.activity.activityId,
-            gameMainId: this.gameInfo.gameMainId
-          }
-          getGameTimes(timesData).then(res => {
-            this.$Indicator.close()
-            // this.levelPopup = true
-            this.$router.push(`/puzzle/play/${this.$route.params.id}`)
-            // if (res.data.canPlay === 1) {
-            //   this.levelPopup = true
-            // } else {
-            //   this.timesPopup = true
-            // }
-          })
+        let userData = {
+          userId: this.userId,
+          userName: this.userName,
+          activityId: this.$store.state.activity.activity.activityId,
+          gameMainId: this.gameInfo.gameMainId
+        }
+        authLogin(userData).then(res => {
+          let detail = JSON.stringify(res.data)
+          sessionStorage.setItem('gameDetail', detail)
+          this.$router.push('/puzzlePlay')
+          this.$Indicator.close()
         })
       },
       lookBtn () {

@@ -9,7 +9,7 @@
     <mt-popup class="levelPopup lookPopup" v-model="lookPopup" :closeOnClickModal="false" popup-transition="popup-fade">
       <i class="closeBtn" @click="Play"></i>
       <div class="img">
-        <img src="/static/img/img1.jpg" alt="">
+        <img :src="gameParams.img" alt="">
       </div>
       <p class="time">
         <span class="s1">预计倒计时:</span>
@@ -23,7 +23,7 @@
 
 <script>
 import PuzzleGame from '../../plugins/game'
-import {getGamePlay} from '../../plugins/api'
+// import {getGamePlay} from '../../plugins/api'
 export default {
   name: 'home',
   data () {
@@ -41,11 +41,13 @@ export default {
     }
   },
   mounted () {
-    getGamePlay({gameMainId: this.$route.params.id}).then(res => {
-      this.pg = new PuzzleGame(this.gameParams)
-      this.pg.imgSplit()
-      this.lookInit()
-    })
+    let gameDetail = JSON.parse(sessionStorage.getItem('gameDetail'))
+    this.gameParams.img = gameDetail.gameDetail.questionContent
+    this.gameParams.level = gameDetail.gameDetail.gameLevel - 3
+    this.time = gameDetail.gameTimeLeft
+    this.pg = new PuzzleGame(this.gameParams)
+    this.pg.imgSplit()
+    this.lookInit()
   },
   destroyed () {
     clearInterval(this.timeInit)
@@ -81,7 +83,7 @@ export default {
     success () {
       clearInterval(this.timeInit)
       alert('恭喜您，成功完成本次游戏！')
-      this.$router.push('/gameover')
+      // this.$router.push('/gameover')
     }
   },
   watch: {
