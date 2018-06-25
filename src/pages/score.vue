@@ -13,19 +13,53 @@
         <span class="score"><b>196</b>&nbsp;分</span>
         <span class="dhBtn">已兑换</span>
       </li>
+      <li class="item clearfix" v-for="(item, index) in list" :key="'score' + index">
+        <span class="time">{{item.createTimeLong | date}}</span>
+        <span class="score"><b :class="{high: item.isConversion == 0}">{{item.scoreGain}}</b>&nbsp;分</span>
+        <span class="dhBtn" v-if="item.isConversion == 1">已兑换</span>
+        <span class="dhBtn high" @click="exchange(item.scoreDetailId)" v-else>兑换</span>
+      </li>
     </ul>
     <router-link class="btn backHome" to="/"></router-link>
   </div>
 </template>
 <script>
+  import {scorelist, exchangeScore} from '../plugins/api'
   export default {
     data () {
       return {
-        list: []
+        list: [],
+        page: 1,
+        limit: 10
       }
     },
     mounted () {
-  
+      let userDt = {
+        userId: this.$store.state.userId
+      }
+      scorelist(userDt).then(res => {
+        this.list = res.data.scoreDetailList
+      })
+    },
+    methods: {
+      exchange (id) {
+        let exDt = {
+          userId: this.$store.state.userId,
+          scoreDetailId: id
+        }
+        exchangeScore(exDt).then(res => {
+
+        })
+      }
+    },
+    filters: {
+      date (val) {
+        var d = new Date(val)
+        var year = d.getFullYear()
+        var month = d.getMonth() + 1
+        var day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
+        return year + '.' + month + '.' + day
+      }
     }
   }
 </script>

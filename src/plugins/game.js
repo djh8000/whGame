@@ -36,7 +36,7 @@ var puzzleGame = function (param) {
 
   this.suc = param.suc
   // 调用初始化函数，拆分图片,绑定按钮功能
-  // this.init()
+  this.init()
 }
 /**
  * [prototype 在puzzleGame对象中添加方法，用json格式表示]

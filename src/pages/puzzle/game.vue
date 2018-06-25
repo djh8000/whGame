@@ -1,20 +1,20 @@
 <template>
-  <div id="gameBody">
-    <p>倒计时: <span>{{time}}秒</span></p>
-    <p>难度: <span>{{nowLevel}}</span>&emsp;&emsp;已连续答对 <em class="col">6</em>/12 题</p>
+  <div id="gameBody" v-if="detail">
+    <p>倒计时: <span>{{detail.gameTimeLeft}}秒</span></p>
+    <p>难度: <span>{{detail.gameLevel + 'x' + detail.gameLevel}}</span>&emsp;&emsp;当前第 <em class="col">{{detail.currentQIndex}}</em>/{{detail.gameDetailCount}} 题</p>
     <div id="wrap">
       <div id="imgArea"></div>
     </div>
-    <p class="nextQuestion">下一题: <em>3</em> 秒</p>
+    <p class="nextQuestion" v-if="nowSuccess">下一题: <em>{{nextTime}}</em> 秒</p>
     <!-- 预览图片弹层 -->
     <mt-popup class="levelPopup lookPopup" v-model="lookPopup" :closeOnClickModal="false" popup-transition="popup-fade">
       <i class="closeBtn" @click="Play"></i>
       <div class="img">
-        <img :src="gameParams.img" alt="">
+        <img :src="detail.questionContent" alt="">
       </div>
       <p class="time">
         <span class="s1">预计倒计时:</span>
-        <span class="s2">{{lookTime}}</span>
+        <span class="s2">{{detail.gameViewTime}}</span>
         <span class="s3">S</span>
       </p>
       <mt-button class="btn" @click="Play"></mt-button>
@@ -24,80 +24,96 @@
 
 <script>
 import PuzzleGame from '../../plugins/game'
-import {grefGameTime} from '../../plugins/api'
+import {grefGameTime, postResult} from '../../plugins/api'
 export default {
-  name: 'home',
+  name: 'puzzlePlay',
   data () {
     return {
+      detail: JSON.parse(sessionStorage.getItem('gameDetail')) || null,
       pg: null,
       gameParams: {
-        img: '/static/img/img1.jpg',
+        img: '',
         level: 0,
         levelArr: [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9], [10, 10]],
         suc: this.success
       },
-      time: 120,
       lookPopup: true,
-      lookTime: 30
+      nextTime: 3,
+      nowSuccess: false
     }
   },
   mounted () {
-    let gameDetail = JSON.parse(sessionStorage.getItem('gameDetail'))
-    this.gameParams.img = gameDetail.questionContent
-    this.gameParams.level = gameDetail.gameLevel - 3
-    this.time = gameDetail.gameTimeLeft
-    this.lookTime = gameDetail.gameViewTime
-    this.pg = new PuzzleGame(this.gameParams)
-    this.pg.imgSplit()
     this.lookInit()
   },
-  destroyed () {
-    clearInterval(this.timeInit)
-  },
-  computed: {
-    nowLevel () {
-      return this.gameParams.levelArr[this.gameParams.level][0] +
-      'x' + this.gameParams.levelArr[this.gameParams.level][1]
-    }
-  },
   methods: {
+    // 游戏打乱初始化
+    gameInit () {
+      this.gameParams.img = this.detail.questionContent
+      this.gameParams.level = this.detail.gameLevel - 3
+      this.pg = new PuzzleGame(this.gameParams)
+    },
+    // 弹层关闭开始游戏
     Play () {
       grefGameTime().then(res => {
+        clearInterval(this.time2)
         this.lookPopup = false
-        this.pg.gameState()
-        this.timeStart()
+        this.gameInit()
+        this.timeInit()
       })
     },
-    timeStart () {
-      this.timeInit = setInterval(() => {
-        this.time--
-        if (this.time <= 0) {
+    // 总游戏倒计时
+    timeInit () {
+      this.time1 = setInterval(() => {
+        this.detail.gameTimeLeft--
+        if (this.detail.gameTimeLeft <= 0) {
+          clearInterval(this.time1)
           this.$router.push('/gameover')
         }
       }, 1000)
     },
+    // 预览倒计时
     lookInit () {
-      this.timeInit1 = setInterval(() => {
-        this.lookTime--
-        if (this.lookTime <= 0) {
+      this.lookPopup = true
+      clearInterval(this.time1)
+      this.time2 = setInterval(() => {
+        this.detail.gameViewTime--
+        if (this.detail.gameViewTime <= 0) {
+          clearInterval(this.time2)
           this.Play()
         }
       }, 1000)
     },
+    // 下一题倒计时
+    nextInit () {
+      this.nowSuccess = true
+      this.time3 = setInterval(() => {
+        this.nextTime--
+        if (this.nextTime <= 0) {
+          clearInterval(this.time3)
+          postResult({questionSelected: this.gameParams.img}).then(res => {
+            if (res.data.gameDetail) {
+              this.detail = res.data.gameDetail
+              sessionStorage.setItem('gameDetail', JSON.stringify(this.detail))
+              this.nowSuccess = false
+              this.nextTime = 3
+              this.lookInit()
+            } else {
+              this.$router.push('/gameover')
+            }
+          })
+        }
+      }, 1000)
+    },
+    // 拼图完成回调
     success () {
-      clearInterval(this.timeInit)
-      alert('恭喜您，成功完成本次游戏！')
-      // this.$router.push('/gameover')
+      this.$msg('完成拼图！')
+      this.nextInit()
     }
   },
-  watch: {
-    lookPopup (status) {
-      if (status) {
-        this.lookInit()
-      } else {
-        clearInterval(this.timeInit1)
-      }
-    }
+  destroyed () {
+    clearInterval(this.time1)
+    clearInterval(this.time2)
+    clearInterval(this.time3)
   }
 }
 </script>

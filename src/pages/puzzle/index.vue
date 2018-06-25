@@ -44,9 +44,7 @@
     data () {
       return {
         gameInfo: null,
-        timesPopup: false,
-        userId: 2,
-        userName: 'djh'
+        timesPopup: false
       }
     },
     mounted () {
@@ -61,16 +59,20 @@
           spinnerType: 'fading-circle'
         })
         let userData = {
-          userId: this.userId,
-          userName: this.userName,
+          userId: this.$store.state.userId,
+          userName: this.$store.state.userName,
           activityId: this.$store.state.activity.activity.activityId,
           gameMainId: this.gameInfo.gameMainId
         }
         authLogin(userData).then(res => {
-          let detail = JSON.stringify(res.data.gameDetail)
-          sessionStorage.setItem('gameDetail', detail)
-          this.$router.push('/puzzlePlay')
           this.$Indicator.close()
+          if (res.data.canPlay === 1) {
+            let detail = JSON.stringify(res.data.gameDetail)
+            sessionStorage.setItem('gameDetail', detail)
+            this.$router.push('/puzzlePlay')
+          } else {
+            this.timesPopup = true
+          }
         })
       }
     }

@@ -6,13 +6,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: null,
+    userId: 13,
+    userName: 'lm',
     activity: null
   },
   getters: {
-    getToken: state => {
-      return state.token
-    }
   },
   mutations,
   actions

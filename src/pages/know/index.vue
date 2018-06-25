@@ -1,13 +1,13 @@
 <template>
-  <div class="knowIndex">
+  <div class="knowIndex" v-if="gameInfo">
     <div class="mainTit"></div>
     <div class="knowRole">
       <img src="../../assets/img/m-icon5.png" class="roleTit">
       <div class="scrollbar">
-        <p>游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则介绍内容文字游戏规则游戏规则</p>
+        <p v-html="gameInfo.gameRule"></p>
       </div>
     </div>
-    <mt-button class="btn actionBtn" @click="timesPopup = true"></mt-button>
+    <mt-button class="btn actionBtn" @click="gameStart"></mt-button>
     <router-link class="btn scoreBtn" to="/scorelist"></router-link>
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
@@ -18,11 +18,42 @@
 </template>
 
 <script>
+  import {getGameInfo, authLogin} from '../../plugins/api'
   export default {
     name: 'know',
     data () {
       return {
+        gameInfo: null,
         timesPopup: false
+      }
+    },
+    mounted () {
+      getGameInfo({id: this.$route.params.id}).then(res => {
+        this.gameInfo = res.data.gameInfo
+      })
+    },
+    methods: {
+      gameStart () {
+        this.$Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
+        let userData = {
+          userId: this.$store.state.userId,
+          userName: this.$store.state.userName,
+          activityId: this.$store.state.activity.activity.activityId,
+          gameMainId: this.gameInfo.gameMainId
+        }
+        authLogin(userData).then(res => {
+          this.$Indicator.close()
+          if (res.data.canPlay === 1) {
+            let detail = JSON.stringify(res.data.gameDetail)
+            sessionStorage.setItem('gameDetail', detail)
+            this.$router.push('/knowplay')
+          } else {
+            this.timesPopup = true
+          }
+        })
       }
     }
   }

@@ -22,14 +22,19 @@ axios.interceptors.response.use(response => {
   if (Number(response.data.code) === 1000) {
     if (response.headers['x-token-key']) {
       localStorage.setItem('token', response.headers['x-token-key'])
-      // window.vm.$store.commit('setToken', response.headers['x-token-key'])
     }
     return response.data
-  } else {
+  } else if (Number(response.data.code) === 2002 ||
+  Number(response.data.code) === 2003 ||
+  Number(response.data.code) === 2004) {
+    window.vm.$Indicator.close()
     window.vm.$msg(response.data.msg)
     setTimeout(function () {
       window.vm.$router.push('/')
     }, 1000)
+  } else {
+    window.vm.$Indicator.close()
+    window.vm.$msg(response.data.msg)
   }
   return Promise.reject(response.data)
 }, function (error) {

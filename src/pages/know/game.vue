@@ -1,15 +1,15 @@
 <template>
   <div class="knowWrap">
-    <div class="knowMain">
+    <div class="knowMain" v-if="detail">
       <div class="userInfo clearfix">
         <div class="userImg"><img src="http://placehold.it/100x100"></div>
         <div class="info">
           <p>MC 热狗</p>
-          <p>已连续答对 <em class="col">6</em>/12 题</p>
+          <p>已连续答对 <em class="col">{{detail.rightQCount}}</em>/{{detail.gameDetailCount}} 题</p>
         </div>
-        <div class="time">10</div>
+        <div class="time">{{detail.gameTimeLeft}}</div>
       </div>
-      <div class="question">
+      <!-- <div class="question">
         <div class="subject">
           7.中国明朝时 ( 七下西洋）的中国航海家是？
         </div>
@@ -18,14 +18,81 @@
             <li><i>B</i><b>魏良辅</b></li>
             <li class="right"><i>C</i><b>魏良辅</b></li>
         </ul>
+      </div> -->
+      <div class="question">
+        <div class="subject">
+          {{`${detail.currentQIndex}.${detail.questionContent}`}}
+        </div>
+        <ul class="select">
+          <li v-for="(item, index) in detail.options" :key="'opt' + index" @click="postSelect(item.questionOptionCode)">
+            <i>{{item.questionOptionCode}}.</i>
+            <b>{{item.questionOptionContent}}</b>
+          </li>
+        </ul>
       </div>
-      <p class="nextQuestion">下一题: <em>3</em> 秒</p>
+      <p class="nextQuestion" v-if="nowSuccess">下一题: <em>{{nextTime}}</em> 秒</p>
     </div>
   </div>
 </template>
 
 <script>
-  
+import {grefGameTime, postResult} from '../../plugins/api'
+export default {
+  name: 'knowPlay',
+  data () {
+    return {
+      detail: JSON.parse(sessionStorage.getItem('gameDetail')) || null,
+      nowSuccess: false,
+      nextTime: 3
+    }
+  },
+  mounted () {
+    // this.timeInit()
+  },
+  methods: {
+    // 总游戏倒计时
+    timeInit () {
+      this.time1 = setInterval(() => {
+        this.detail.gameTimeLeft--
+        if (this.detail.gameTimeLeft <= 0) {
+          this.$router.push('/gameover')
+        }
+      }, 1000)
+    },
+    // 提交选择
+    postSelect (id) {
+      this.$Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      })
+      postResult({questionSelected: id}).then(res => {
+        if (res.data.gameDetail) {
+          sessionStorage.setItem('gameDetail', JSON.stringify(this.detail))
+          this.nextInit(res.data.gameDetail)
+        } else {
+          this.$router.push('/gameover')
+        }
+      })
+    },
+    nextInit (data) {
+      grefGameTime().then(res => {
+        this.$Indicator.close()
+        this.nowSuccess = true
+        this.time2 = setInterval(() => {
+          this.nextTime--
+          if (this.nextTime <= 0) {
+            clearInterval(this.time2)
+            this.detail = data
+            this.nowSuccess = false
+            this.nextTime = 3
+          }
+        }, 1000)
+      })
+    }
+  },
+  destroyed () {
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -107,7 +174,7 @@
         border-width: 4px;
         border-style: solid;
         font-size: 36px;
-        line-height: 100px;
+        line-height: 90px;
         overflow: hidden;
         text-align: center;
         margin: 0 auto 45px;
