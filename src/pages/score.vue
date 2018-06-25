@@ -2,14 +2,16 @@
   <div class="scoreWrap">
   	<div class="userInfo"><img src="http://placehold.it/106x106"></div>
     <p class="name">MC热狗</p>
-    <ul class="scoreList">
-      <li class="item clearfix" v-for="(item, index) in list" :key="'score' + index">
-        <span class="time">{{item.createTimeLong | date}}</span>
-        <span class="score"><b :class="{high: item.isConversion == 0}">{{item.scoreGain}}</b>&nbsp;分</span>
-        <span class="dhBtn" v-if="item.isConversion == 1">已兑换</span>
-        <span class="dhBtn high" @click="sureChange(item.createTimeLong, item.scoreDetailId, index)" v-if="item.isConversion == 0 && item.scoreGain != 0">兑换</span>
-      </li>
-    </ul>
+    <div id="mescroll" class="mescroll mescroll-hardware">
+      <ul class="scoreList">
+        <li class="item clearfix" v-for="(item, index) in list" :key="'score' + index">
+          <span class="time">{{item.createTimeLong | date}}</span>
+          <span class="score"><b :class="{high: item.isConversion == 0}">{{item.scoreGain}}</b>&nbsp;分</span>
+          <span class="dhBtn" v-if="item.isConversion == 1">已兑换</span>
+          <span class="dhBtn high" @click="sureChange(item.createTimeLong, item.scoreDetailId, index)" v-if="item.isConversion == 0 && item.scoreGain != 0">兑换</span>
+        </li>
+      </ul>
+    </div>
     <router-link class="btn backHome" to="/"></router-link>
     <!-- 确认兑换弹层 -->
     <mt-popup class="timesPopup surePopup" v-model="surePopup" popup-transition="popup-fade">
@@ -26,6 +28,8 @@
 </template>
 <script>
   import {scorelist, exchangeScore} from '../plugins/api'
+  import MeScroll from 'mescroll.js'
+  import 'mescroll.js/mescroll.min.css'
   export default {
     data () {
       return {
@@ -42,14 +46,35 @@
       }
     },
     mounted () {
-      let userDt = {
-        userId: this.$store.state.userId
-      }
-      scorelist(userDt).then(res => {
-        this.list = res.data.scoreDetailList
+      this.mescroll = new MeScroll('mescroll', {
+        up: {
+          callback: this.getList,
+          isBounce: false,
+          noMoreSize: 8,
+          empty: {
+            warpId: null,
+            icon: null,
+            tip: '暂无相关数据~',
+            btntext: '',
+            btnClick: null,
+            supportTap: false
+          }
+        }
       })
     },
     methods: {
+      getList (page) {
+        let userDt = {
+          userId: this.$store.state.userId,
+          page: page.num,
+          limit: page.size
+        }
+        scorelist(userDt).then(res => {
+          this.list = res.data.scoreDetailList
+          const hasNext = this.list.length === this.limit
+          this.mescroll.endSuccess(this.list.length, hasNext)
+        })
+      },
       sureChange (date, id, index) {
         this.nowChange.date = date
         this.nowChange.id = id
@@ -105,12 +130,15 @@
       text-align: center;
       margin-bottom: 20px;
     }
+    .mescroll{
+      height: 800px;
+    }
     .scoreList{
       width: 640px;
       color: #ffffff;
       font-size: 30px;
       margin: 0 auto;
-      height: 755px;
+      height: 740px;
       overflow: auto;
       .item{
         border-radius: 10px;
@@ -151,8 +179,8 @@
       }
     }
     .backHome{
-      margin-top: 35px;
-      margin-bottom: 30px;
+      margin-top: 20px;
+      margin-bottom: 50px;
     }
     .surePopup{
       .tips{

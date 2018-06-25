@@ -28,7 +28,7 @@ export const gameOver = params => {
 export const scorelist = params => {
   return http.get('/api/user/getScoreDetail', params)
 }
-// 提交结果
+// 兑换积分
 export const exchangeScore = params => {
   return http.post('/api/user/postConversionScore', params)
 }

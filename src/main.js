@@ -15,7 +15,6 @@ FastClick.attach(document.body)
 Vue.prototype.$cookie = cookie
 Vue.prototype.$http = http
 Vue.prototype.$token = '123'
-// Vue.use(Navigation, {router})
 Vue.config.productionTip = false
 
 window.vm = new Vue({
