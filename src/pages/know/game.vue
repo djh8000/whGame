@@ -24,13 +24,15 @@
           {{`${detail.currentQIndex}.${detail.questionContent}`}}
         </div>
         <ul class="select">
-          <li v-for="(item, index) in detail.options" :key="'opt' + index" @click="postSelect(item.questionOptionCode)">
+          <li v-for="(item, index) in detail.options" :key="'opt' + index"
+          :class="{right: nowInfo.questionAnswer == item.questionOptionCode, wrong: nowInfo.index == index && nowInfo.playResult == 0}"
+          @click="postSelect(item.questionOptionCode, index)">
             <i>{{item.questionOptionCode}}.</i>
             <b>{{item.questionOptionContent}}</b>
           </li>
         </ul>
       </div>
-      <p class="nextQuestion" v-if="nowSuccess">下一题: <em>{{nextTime}}</em> 秒</p>
+      <p class="nextQuestion" v-if="nowInfo">下一题: <em>{{nextTime}}</em> 秒</p>
     </div>
   </div>
 </template>
@@ -43,54 +45,67 @@ export default {
     return {
       detail: JSON.parse(sessionStorage.getItem('gameDetail')) || null,
       nowSuccess: false,
+      nowInfo: false,
       nextTime: 3
     }
   },
   mounted () {
-    // this.timeInit()
+    this.timeInit()
   },
   methods: {
     // 总游戏倒计时
     timeInit () {
-      this.time1 = setInterval(() => {
-        this.detail.gameTimeLeft--
-        if (this.detail.gameTimeLeft <= 0) {
-          this.$router.push('/gameover')
-        }
-      }, 1000)
+      grefGameTime().then(res => {
+        this.time1 = setInterval(() => {
+          this.detail.gameTimeLeft--
+          if (this.detail.gameTimeLeft <= 0) {
+            this.$router.push('/gameover')
+          }
+        }, 1000)
+      })
     },
     // 提交选择
-    postSelect (id) {
+    postSelect (id, index) {
+      if (this.nowInfo) {
+        return false
+      }
       this.$Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'
       })
       postResult({questionSelected: id}).then(res => {
-        if (res.data.gameDetail) {
-          sessionStorage.setItem('gameDetail', JSON.stringify(this.detail))
-          this.nextInit(res.data.gameDetail)
-        } else {
-          this.$router.push('/gameover')
-        }
+        this.$Indicator.close()
+        this.nextInit(res.data, index)
       })
     },
-    nextInit (data) {
+    nextInit (data, index) {
       grefGameTime().then(res => {
-        this.$Indicator.close()
         this.nowSuccess = true
+        this.nowInfo = {
+          playResult: data.playResult,
+          questionAnswer: data.questionAnswer,
+          index: index
+        }
         this.time2 = setInterval(() => {
           this.nextTime--
           if (this.nextTime <= 0) {
             clearInterval(this.time2)
-            this.detail = data
-            this.nowSuccess = false
+            this.nowInfo = false
             this.nextTime = 3
+            if (data.gameDetail) {
+              this.detail = data.gameDetail
+              sessionStorage.setItem('gameDetail', JSON.stringify(this.detail))
+            } else {
+              this.$router.push('/gameover')
+            }
           }
         }, 1000)
       })
     }
   },
   destroyed () {
+    clearInterval(this.time1)
+    clearInterval(this.time2)
   }
 }
 </script>

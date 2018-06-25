@@ -17,19 +17,19 @@
         <span class="time">{{item.createTimeLong | date}}</span>
         <span class="score"><b :class="{high: item.isConversion == 0}">{{item.scoreGain}}</b>&nbsp;分</span>
         <span class="dhBtn" v-if="item.isConversion == 1">已兑换</span>
-        <span class="dhBtn high" @click="exchange(item.scoreDetailId)" v-else>兑换</span>
+        <span class="dhBtn high" @click="sureChange(item.createTimeLong, item.scoreDetailId, index)" v-if="item.isConversion == 0 && item.scoreGain != 0">兑换</span>
       </li>
     </ul>
     <router-link class="btn backHome" to="/"></router-link>
     <!-- 确认兑换弹层 -->
     <mt-popup class="timesPopup surePopup" v-model="surePopup" popup-transition="popup-fade">
       <i class="closeBtn" @click="surePopup = false"></i>
-      <p class="tips">您确定要兑换<br>2018.5.18的积分吗？</p>
-      <mt-button class="btn sureBtn" @click="surePopup = false;goonPopup = true "></mt-button>
+      <p class="tips">您确定要兑换<br>{{nowChange.date | date}}的积分吗？</p>
+      <mt-button class="btn sureBtn" @click="exchange"></mt-button>
     </mt-popup>
     <!-- 继续兑换弹层 -->
     <mt-popup class="timesPopup goonPopup" v-model="goonPopup" popup-transition="popup-fade">
-      <p class="tips">您已成功兑换<br>2018.5.18的积分!</p>
+      <p class="tips">您已成功兑换<br>{{nowChange.date | date}}的积分!</p>
       <mt-button class="btn goonBtn" @click="goonPopup = false "></mt-button>
     </mt-popup>
   </div>
@@ -43,7 +43,12 @@
         page: 1,
         limit: 10,
         surePopup: false,
-        goonPopup: false
+        goonPopup: false,
+        nowChange: {
+          date: '',
+          id: '',
+          index: 0
+        }
       }
     },
     mounted () {
@@ -55,13 +60,21 @@
       })
     },
     methods: {
-      exchange (id) {
+      sureChange (date, id, index) {
+        this.nowChange.date = date
+        this.nowChange.id = id
+        this.nowChange.index = index
+        this.surePopup = true
+      },
+      exchange () {
         let exDt = {
           userId: this.$store.state.userId,
-          scoreDetailId: id
+          scoreDetailId: this.nowChange.id
         }
         exchangeScore(exDt).then(res => {
-
+          this.surePopup = false
+          this.goonPopup = true
+          this.$set(this.list[this.nowChange.index], 'isConversion', 1)
         })
       }
     },
@@ -142,6 +155,7 @@
           &.high{
             font-weight: bold;
             font-size: 24px;
+            line-height: 44px;
             background-color: #fff;
           }
         }
