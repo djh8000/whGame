@@ -1,10 +1,11 @@
 <template>
   <div id="gameBody">
     <p>倒计时: <span>{{time}}秒</span></p>
-    <p>难度: <span>{{nowLevel}}</span></p>
+    <p>难度: <span>{{nowLevel}}</span>&emsp;&emsp;已连续答对 <em class="col">6</em>/12 题</p>
     <div id="wrap">
       <div id="imgArea"></div>
     </div>
+    <p class="nextQuestion">下一题: <em>3</em> 秒</p>
     <!-- 预览图片弹层 -->
     <mt-popup class="levelPopup lookPopup" v-model="lookPopup" :closeOnClickModal="false" popup-transition="popup-fade">
       <i class="closeBtn" @click="Play"></i>
@@ -150,6 +151,16 @@ export default {
       .btn{
         background: url('../../assets/img/btn2-4.png') center center no-repeat;
         margin-top: 0;
+      }
+    }
+    .nextQuestion{
+      color: #333333;
+      font-size: 30px;
+      text-align: center;
+      line-height: 130px;
+      em{
+        font-size: 48px;
+        color: #ff5a52;
       }
     }
   }
