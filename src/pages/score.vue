@@ -6,7 +6,7 @@
       <li class="item clearfix">
         <span class="time">2018.5.12</span>
         <span class="score"><b class="high">196</b>&nbsp;分</span>
-        <span class="dhBtn high">兑换</span>
+        <mt-button class="dhBtn high" @click="surePopup = true">兑换</mt-button>
       </li>
       <li class="item clearfix">
         <span class="time">2018.5.12</span>
@@ -15,13 +15,26 @@
       </li>
     </ul>
     <router-link class="btn backHome" to="/"></router-link>
+    <!-- 确认兑换弹层 -->
+    <mt-popup class="timesPopup surePopup" v-model="surePopup" popup-transition="popup-fade">
+      <i class="closeBtn" @click="surePopup = false"></i>
+      <p class="tips">您确定要兑换<br>2018.5.18的积分吗？</p>
+      <mt-button class="btn sureBtn" @click="surePopup = false;goonPopup = true "></mt-button>
+    </mt-popup>
+    <!-- 继续兑换弹层 -->
+    <mt-popup class="timesPopup goonPopup" v-model="goonPopup" popup-transition="popup-fade">
+      <p class="tips">您已成功兑换<br>2018.5.18的积分!</p>
+      <mt-button class="btn goonBtn" @click="goonPopup = false "></mt-button>
+    </mt-popup>
   </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        list: []
+        list: [],
+        surePopup: false,
+        goonPopup: false
       }
     },
     mounted () {
@@ -103,6 +116,32 @@
     .backHome{
       margin-top: 35px;
       margin-bottom: 30px;
+    }
+    .surePopup{
+      .tips{
+        margin-top: 105px;
+      }
+      &:after{
+        display: none;
+      }
+    }
+    .goonPopup{
+      .tips{
+        margin-top: 124px;
+      }
+      &:after{
+        background: #fff url(../assets/img/m-icon3.png) no-repeat center 25px;
+      }
+    }
+    .sureBtn{
+      margin-top: 35px;
+      margin-bottom: 30px;
+      background: url(../assets/img/btn2-11.png) no-repeat;
+    }
+    .goonBtn{
+      margin-top: 35px;
+      margin-bottom: 30px;
+      background: url(../assets/img/btn2-10.png) no-repeat;
     }
 	}
 </style>
