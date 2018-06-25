@@ -23,7 +23,7 @@
 
 <script>
 import PuzzleGame from '../../plugins/game'
-// import {getGamePlay} from '../../plugins/api'
+import {grefGameTime} from '../../plugins/api'
 export default {
   name: 'home',
   data () {
@@ -42,9 +42,10 @@ export default {
   },
   mounted () {
     let gameDetail = JSON.parse(sessionStorage.getItem('gameDetail'))
-    this.gameParams.img = gameDetail.gameDetail.questionContent
-    this.gameParams.level = gameDetail.gameDetail.gameLevel - 3
+    this.gameParams.img = gameDetail.questionContent
+    this.gameParams.level = gameDetail.gameLevel - 3
     this.time = gameDetail.gameTimeLeft
+    this.lookTime = gameDetail.gameViewTime
     this.pg = new PuzzleGame(this.gameParams)
     this.pg.imgSplit()
     this.lookInit()
@@ -60,9 +61,11 @@ export default {
   },
   methods: {
     Play () {
-      this.lookPopup = false
-      this.pg.gameState()
-      this.timeStart()
+      grefGameTime().then(res => {
+        this.lookPopup = false
+        this.pg.gameState()
+        this.timeStart()
+      })
     },
     timeStart () {
       this.timeInit = setInterval(() => {

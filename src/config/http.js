@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import Url from './url'
-import cookie from '../plugins/cookie'
+// import cookie from '../plugins/cookie'
 
 // 请求公共配置
 axios.defaults.baseURL = Url.api
@@ -25,11 +25,11 @@ axios.interceptors.response.use(response => {
       // window.vm.$store.commit('setToken', response.headers['x-token-key'])
     }
     return response.data
-  } else if (Number(response.data.code === 2000)) {
-    window.vm.$msg(response.data.msg)
-    cookie.del('ssotoken')
   } else {
     window.vm.$msg(response.data.msg)
+    setTimeout(function () {
+      window.vm.$router.push('/')
+    }, 1000)
   }
   return Promise.reject(response.data)
 }, function (error) {

@@ -12,12 +12,12 @@ export const getActivity = params => {
 export const getGameInfo = params => {
   return http.get('/api/activity/getGames', params)
 }
-// 获取游戏次数
-export const getGameTimes = params => {
-  return http.get('/api/activity/getGamePlayTimes', params)
+// 更新倒计时
+export const grefGameTime = params => {
+  return http.get('/api/activity/refGameTime', params)
 }
-// 开始游戏
-export const getGamePlay = params => {
-  return http.get('/api/activity/getGameDetailByMainId', params)
+// 提交结果
+export const postResult = params => {
+  return http.post('/api/activity/postResult', params)
 }
 /* -----↓↓↓↓登录权限接口↓↓↓↓----- */

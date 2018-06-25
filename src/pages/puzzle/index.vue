@@ -45,9 +45,7 @@
       return {
         gameInfo: null,
         timesPopup: false,
-        // levelPopup: false,
-        level: 0,
-        userId: 1,
+        userId: 2,
         userName: 'djh'
       }
     },
@@ -69,15 +67,11 @@
           gameMainId: this.gameInfo.gameMainId
         }
         authLogin(userData).then(res => {
-          let detail = JSON.stringify(res.data)
+          let detail = JSON.stringify(res.data.gameDetail)
           sessionStorage.setItem('gameDetail', detail)
           this.$router.push('/puzzlePlay')
           this.$Indicator.close()
         })
-      },
-      lookBtn () {
-        // this.levelPopup = false
-        this.$router.push(`/puzzle/play/${this.level + 3}`)
       }
     }
   }
