@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userId: 15,
+    userId: 16,
     userName: 'lm',
     activity: null
   },

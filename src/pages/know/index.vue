@@ -8,7 +8,7 @@
       </div>
     </div>
     <mt-button class="btn actionBtn" @click="gameStart"></mt-button>
-    <router-link class="btn scoreBtn" to="/scorelist"></router-link>
+    <router-link class="btn scoreBtn" to="/score"></router-link>
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
       <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>

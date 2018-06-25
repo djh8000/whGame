@@ -3,16 +3,6 @@
   	<div class="userInfo"><img src="http://placehold.it/106x106"></div>
     <p class="name">MC热狗</p>
     <ul class="scoreList">
-      <li class="item clearfix">
-        <span class="time">2018.5.12</span>
-        <span class="score"><b class="high">196</b>&nbsp;分</span>
-        <mt-button class="dhBtn high" @click="surePopup = true">兑换</mt-button>
-      </li>
-      <li class="item clearfix">
-        <span class="time">2018.5.12</span>
-        <span class="score"><b>196</b>&nbsp;分</span>
-        <span class="dhBtn">已兑换</span>
-      </li>
       <li class="item clearfix" v-for="(item, index) in list" :key="'score' + index">
         <span class="time">{{item.createTimeLong | date}}</span>
         <span class="score"><b :class="{high: item.isConversion == 0}">{{item.scoreGain}}</b>&nbsp;分</span>
@@ -155,7 +145,6 @@
           &.high{
             font-weight: bold;
             font-size: 24px;
-            line-height: 44px;
             background-color: #fff;
           }
         }
