@@ -5,7 +5,10 @@
   	<p class="tips">您本次成绩为<em> {{info.scoreGain}} </em><br>您还有<em> {{info.timesLeft}} </em>次机会！</p>
   	<router-link class="btn againBtn" to="/"><!-- 再来一次 --></router-link>
   	<router-link class="btn scoreBtn" to="/score"><!-- 我的成绩 --></router-link>
-  	<router-link class="btn shareBtn" to="/"><!-- 我要分享 --></router-link>
+  	<mt-button class="btn shareBtn" @click="share = !share"><!-- 我要分享 --></mt-button>
+    <div class="share" @click="share = !share" v-show="share">
+      <img src="../assets/img/wx.png">
+    </div>
   </div>
 </template>
 <script>
@@ -13,7 +16,8 @@ import {gameOver} from '../plugins/api'
 export default {
   data () {
     return {
-      info: ''
+      info: '',
+      share: false
     }
   },
   mounted () {
@@ -29,6 +33,19 @@ export default {
     background: url('../assets/img/m-bg3.png') center bottom no-repeat;
     overflow: auto;
     position: relative;
+    .share{
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9999;
+      img{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+      }
+    }
     .overImg{
     	margin: 122px auto 0;
     	display: block;

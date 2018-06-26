@@ -19,25 +19,26 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => {
-  console.log(response)
-  if (Number(response.data.code) === 1000) {
-    if (response.headers['x-token-key']) {
-      localStorage.setItem('token', response.headers['x-token-key'])
-    }
-    return response.data
-  } else if (Number(response.data.code) === 2002 ||
-  Number(response.data.code) === 2003 ||
-  Number(response.data.code) === 2004) {
-    window.vm.$Indicator.close()
-    window.vm.$msg(response.data.msg)
-    setTimeout(function () {
-      window.vm.$router.push('/')
-    }, 1000)
-  } else {
-    window.vm.$Indicator.close()
-    window.vm.$msg(response.data.msg)
+  switch (response.data.code) {
+    case 1000:
+      if (response.headers['x-token-key']) {
+        localStorage.setItem('token', response.headers['x-token-key'])
+      }
+      return response.data
+    case 2002:
+      window.vm.$msg(response.data.msg)
+      setTimeout(function () {
+        window.vm.$router.push('/')
+      }, 1000)
+      break
+    case 2004:
+      localStorage.removeItem('token')
+      window.vm.$msg(response.data.msg)
+      break
+    default:
+      window.vm.$msg(response.data.msg)
+      break
   }
-  return Promise.reject(response.data)
 }, function (error) {
   // 当响应异常时做一些处理
   return Promise.reject(error)

@@ -63,6 +63,11 @@
         }
         scorelist(userDt).then(res => {
           this.list = res.data.scoreDetailList
+          if (page.num === 1) {
+            this.list = res.data.scoreDetailList
+          } else {
+            this.list = [...this.list, ...res.data.scoreDetailList]
+          }
           const hasNext = this.list.length === this.limit
           this.mescroll.endSuccess(this.list.length, hasNext)
         })
@@ -130,8 +135,6 @@
       color: #ffffff;
       font-size: 30px;
       margin: 0 auto;
-      height: 740px;
-      overflow: auto;
       .item{
         border-radius: 10px;
         height: 80px;
