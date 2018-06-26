@@ -29,7 +29,10 @@ export default new Router({
     {
       name: 'puzzlePlay',
       path: '/puzzlePlay',
-      component: game
+      component: game,
+      meta: {
+        isLogin: true
+      }
     },
     {
       name: 'know',
@@ -42,17 +45,26 @@ export default new Router({
     {
       name: 'knowPlay',
       path: '/knowplay',
-      component: knowgame
+      component: knowgame,
+      meta: {
+        isLogin: true
+      }
     },
     {
       name: 'gameover',
       path: '/gameover',
-      component: gameover
+      component: gameover,
+      meta: {
+        isLogin: true
+      }
     },
     {
       name: 'score',
       path: '/score',
-      component: score
+      component: score,
+      meta: {
+        isLogin: true
+      }
     }
   ]
 })

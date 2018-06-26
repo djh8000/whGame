@@ -32,8 +32,8 @@ window.vm = new Vue({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.isLogin)) {
-    if (cookie.get('ssotoken') === null) {
-      // loginLose()
+    if (localStorage.getItem('token') === null) {
+      window.vm.$msg('请先进行登陆！')
     } else {
       next()
     }

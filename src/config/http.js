@@ -2,6 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import Url from './url'
 // import cookie from '../plugins/cookie'
+// import {authLogin} from '../plugins'
 
 // 请求公共配置
 axios.defaults.baseURL = Url.api
@@ -32,6 +33,11 @@ axios.interceptors.response.use(response => {
       }, 1000)
       break
     case 2004:
+      // return new Promise((resolve, reject) => {
+      //   setTimeout(() => {
+      //     resolve(response.data)
+      //   }, 2000)
+      // })
       localStorage.removeItem('token')
       window.vm.$msg(response.data.msg)
       break
