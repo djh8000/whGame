@@ -50,15 +50,7 @@
         up: {
           callback: this.getList,
           isBounce: false,
-          noMoreSize: 8,
-          empty: {
-            warpId: null,
-            icon: null,
-            tip: '暂无相关数据~',
-            btntext: '',
-            btnClick: null,
-            supportTap: false
-          }
+          noMoreSize: 8
         }
       })
     },

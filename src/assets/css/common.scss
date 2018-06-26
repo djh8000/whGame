@@ -80,16 +80,6 @@ img {
 div, img, ul, li, input{
   box-sizing: border-box;
 }
-// 加载中
-.loading{
-  background: rgba(255,255,255,0.5);
-  height: 100vh;
-  width: 100%;
-  z-index: 20;
-  position: fixed;
-  left: 0;
-  top: 0;
-}
 .mint-indicator-wrapper{
   width: 240px;
   height: 240px;
@@ -104,6 +94,35 @@ div, img, ul, li, input{
   .mint-indicator-text{
     font-size: 28px;
     margin-top: 20px;
+  }
+}
+// mescroll样式调整
+.mescroll{
+  .mescroll-downwarp{
+    .downwarp-content{
+      .downwarp-progress{
+        width: 26px;
+        height: 26px;
+        border:2px solid #fff;
+        border-bottom-color: transparent;
+      }
+      .downwarp-tip{
+        font-size: 22px;
+        color: #fff;
+      }    
+    }
+  }
+  .mescroll-upwarp{
+    .upwarp-progress{
+      width: 26px;
+      height: 26px;
+      border:2px solid #fff;
+      border-bottom-color: transparent;
+    }
+    .upwarp-tip{
+      font-size: 22px;
+      color: #fff;
+    }
   }
 }
 // $msg

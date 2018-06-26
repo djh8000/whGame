@@ -19,6 +19,7 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => {
+  console.log(response)
   if (Number(response.data.code) === 1000) {
     if (response.headers['x-token-key']) {
       localStorage.setItem('token', response.headers['x-token-key'])
