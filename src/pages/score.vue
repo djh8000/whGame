@@ -50,7 +50,7 @@
         up: {
           callback: this.getList,
           isBounce: false,
-          noMoreSize: 8
+          noMoreSize: 5
         }
       })
     },
@@ -62,7 +62,6 @@
           limit: page.size
         }
         scorelist(userDt).then(res => {
-          this.list = res.data.scoreDetailList
           if (page.num === 1) {
             this.list = res.data.scoreDetailList
           } else {
@@ -174,7 +173,7 @@
       }
     }
     .backHome{
-      margin-top: 20px;
+      margin-top: 35px;
       margin-bottom: 50px;
     }
     .surePopup{
