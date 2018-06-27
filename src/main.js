@@ -14,7 +14,6 @@ import './assets/css/theme.scss'
 FastClick.attach(document.body)
 Vue.prototype.$cookie = cookie
 Vue.prototype.$http = http
-Vue.prototype.$token = '123'
 Vue.config.productionTip = false
 
 window.vm = new Vue({

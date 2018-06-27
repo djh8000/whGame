@@ -34,8 +34,6 @@
     data () {
       return {
         list: [],
-        page: 1,
-        limit: 10,
         surePopup: false,
         goonPopup: false,
         nowChange: {
@@ -67,7 +65,7 @@
           } else {
             this.list = [...this.list, ...res.data.scoreDetailList]
           }
-          const hasNext = this.list.length === this.limit
+          const hasNext = this.list.length === page.size
           this.mescroll.endSuccess(this.list.length, hasNext)
         })
       },

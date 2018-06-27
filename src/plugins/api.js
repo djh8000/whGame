@@ -32,4 +32,3 @@ export const scorelist = params => {
 export const exchangeScore = params => {
   return http.post('/api/user/postConversionScore', params)
 }
-/* -----↓↓↓↓登录权限接口↓↓↓↓----- */
