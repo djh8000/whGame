@@ -1,9 +1,5 @@
 import http from '../config/http'
 
-// 授权验证
-export const authLogin = params => {
-  return http.post('/api/authLogin', params)
-}
 // 获取活动
 export const getActivity = params => {
   return http.get('/api/activity/getActivity', params)
@@ -11,6 +7,14 @@ export const getActivity = params => {
 // 获取游戏
 export const getGameInfo = params => {
   return http.get('/api/activity/getGames', params)
+}
+// 授权验证
+export const authLogin = params => {
+  return http.post('/api/authLogin', params)
+}
+// 开始游戏
+export const gameStart = params => {
+  return http.get('/api/activity/gameStart', params)
 }
 // 更新倒计时
 export const grefGameTime = params => {

@@ -55,7 +55,6 @@
     methods: {
       getList (page) {
         let userDt = {
-          userId: this.$store.state.userId,
           page: page.num,
           limit: page.size
         }
@@ -77,7 +76,6 @@
       },
       exchange () {
         let exDt = {
-          userId: this.$store.state.userId,
           scoreDetailId: this.nowChange.id
         }
         exchangeScore(exDt).then(res => {

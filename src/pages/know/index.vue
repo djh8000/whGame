@@ -8,7 +8,7 @@
       </div>
     </div>
     <mt-button class="btn actionBtn" @click="gameStart"></mt-button>
-    <router-link class="btn scoreBtn" to="/score"></router-link>
+    <mt-button class="btn scoreBtn" @click="goScore"></mt-button>
     <!-- 次数不够弹层 -->
     <mt-popup class="timesPopup" v-model="timesPopup" popup-transition="popup-fade">
       <p class="tips">今日机会已用完啦，<br>明天再来哦！</p>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import {getGameInfo, authLogin} from '../../plugins/api'
+  import {getGameInfo, authLogin, gameStart} from '../../plugins/api'
   export default {
     name: 'know',
     data () {
@@ -40,19 +40,37 @@
         })
         let userData = {
           userId: this.$store.state.userId,
-          userName: this.$store.state.userName,
-          activityId: this.$store.state.activity.activity.activityId,
-          gameMainId: this.gameInfo.gameMainId
+          userName: this.$store.state.userName
+        }
+        authLogin(userData).then(res => {
+          let gameData = {
+            activityId: this.$store.state.activity.activity.activityId,
+            gameMainId: this.gameInfo.gameMainId
+          }
+          gameStart(gameData).then(res => {
+            this.$Indicator.close()
+            if (res.data.canPlay === 1) {
+              let detail = JSON.stringify(res.data.gameDetail)
+              sessionStorage.setItem('gameDetail', detail)
+              this.$router.push('/knowPlay')
+            } else {
+              this.timesPopup = true
+            }
+          })
+        })
+      },
+      goScore () {
+        this.$Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
+        let userData = {
+          userId: this.$store.state.userId,
+          userName: this.$store.state.userName
         }
         authLogin(userData).then(res => {
           this.$Indicator.close()
-          if (res.data.canPlay === 1) {
-            let detail = JSON.stringify(res.data.gameDetail)
-            sessionStorage.setItem('gameDetail', detail)
-            this.$router.push('/knowplay')
-          } else {
-            this.timesPopup = true
-          }
+          this.$router.push('/score')
         })
       }
     }

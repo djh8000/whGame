@@ -33,13 +33,11 @@ axios.interceptors.response.use(response => {
       }, 1000)
       break
     case 2004:
-      // return new Promise((resolve, reject) => {
-      //   setTimeout(() => {
-      //     resolve(response.data)
-      //   }, 2000)
-      // })
       localStorage.removeItem('token')
-      window.vm.$msg(response.data.msg)
+      window.vm.$msg('停留时间过长，返回请重新操作！')
+      setTimeout(function () {
+        window.vm.$router.push('/')
+      }, 1000)
       break
     default:
       window.vm.$msg(response.data.msg)
