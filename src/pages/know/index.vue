@@ -1,6 +1,6 @@
 <template>
   <div class="knowIndex" v-if="gameInfo">
-    <div class="mainTit"></div>
+    <div class="mainTit"><span>知识问答哈哈</span></div>
     <div class="knowRole">
       <img src="../../assets/img/m-icon5.png" class="roleTit">
       <div class="scrollbar">
@@ -88,6 +88,18 @@
       height: 291px;
       margin-top:50px;
       margin-left: 186px;
+      font-size: 64px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+      span{
+        display: block;
+        width: 370px;
+        margin-top: 63px;
+        height: 100px;
+        line-height: 100px;
+      }
     }
     .knowRole{
       width: 620px;
