@@ -1,6 +1,6 @@
 <template>
   <div class="knowIndex" v-if="gameInfo">
-    <div class="mainTit"><span>知识问答哈哈</span></div>
+    <div class="mainTit"><span>{{gameInfo.gameName}}</span></div>
     <div class="knowRole">
       <img src="../../assets/img/m-icon5.png" class="roleTit">
       <div class="scrollbar">

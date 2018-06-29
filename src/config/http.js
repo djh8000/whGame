@@ -27,7 +27,7 @@ axios.interceptors.response.use(response => {
       }
       return response.data
     case 2002:
-      window.vm.$msg('未登录，请到“文化嘉定云”上登陆')
+      window.vm.$msg('未登录，请到“文化嘉定云”上登陆!')
       setTimeout(function () {
         window.vm.$router.push('/')
       }, 1000)

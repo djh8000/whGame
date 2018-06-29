@@ -1,6 +1,6 @@
 <template>
   <div class="puzzleHome" v-if="gameInfo">
-    <div class="title">趣味拼图</div>
+    <div class="title">{{gameInfo.gameName}}</div>
     <div class="p-main">
       <div class="scroll scrollbar" v-html="gameInfo.gameRule"></div>
     </div>
