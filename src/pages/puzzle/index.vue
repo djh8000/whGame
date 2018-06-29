@@ -1,6 +1,6 @@
 <template>
   <div class="puzzleHome" v-if="gameInfo">
-    <img class="title" src="../../assets/img/icon2-1.png" alt="">
+    <div class="title">趣味拼图</div>
     <div class="p-main">
       <div class="scroll scrollbar" v-html="gameInfo.gameRule"></div>
     </div>
@@ -82,6 +82,15 @@
     .title{
       display: block;
       margin: 40px auto 20px;
+      width: 487px;
+      height: 184px;
+      background: url(../../assets/img/icon2-1.png) no-repeat center;
+      font-size: 64px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 180px;
+      text-align: center;
+      overflow: hidden;
     }
     .p-main{
       width: 628px;
