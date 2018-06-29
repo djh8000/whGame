@@ -27,14 +27,14 @@ axios.interceptors.response.use(response => {
       }
       return response.data
     case 2002:
-      window.vm.$msg(response.data.msg)
+      window.vm.$msg('未登录，请到“文化嘉定云”上登陆')
       setTimeout(function () {
         window.vm.$router.push('/')
       }, 1000)
       break
     case 2004:
       localStorage.removeItem('token')
-      window.vm.$msg('停留时间过长，返回请重新操作！')
+      window.vm.$msg('很抱歉，您的停留时间过长，请重新操作！')
       setTimeout(function () {
         window.vm.$router.push('/')
       }, 1000)

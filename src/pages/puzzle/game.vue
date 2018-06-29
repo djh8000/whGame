@@ -66,6 +66,7 @@ export default {
       this.time1 = setInterval(() => {
         this.detail.gameTimeLeft--
         if (this.detail.gameTimeLeft <= 0) {
+          this.$msg('抱歉，时间已用完，游戏结束！')
           clearInterval(this.time1)
           this.$router.push('/gameover')
         }

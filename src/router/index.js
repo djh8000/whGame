@@ -16,14 +16,18 @@ export default new Router({
     {
       name: 'home',
       path: '/',
-      component: home
+      component: home,
+      meta: {
+        title: '首页'
+      }
     },
     {
       name: 'puzzle',
       path: '/puzzle/:id',
       component: puzzle,
       meta: {
-        isbg: true
+        isbg: true,
+        title: '游戏规则'
       }
     },
     {
@@ -31,7 +35,8 @@ export default new Router({
       path: '/puzzlePlay',
       component: game,
       meta: {
-        isLogin: true
+        isLogin: true,
+        title: '游戏中'
       }
     },
     {
@@ -39,7 +44,8 @@ export default new Router({
       path: '/know/:id',
       component: know,
       meta: {
-        isbg: true
+        isbg: true,
+        title: '游戏规则'
       }
     },
     {
@@ -47,7 +53,8 @@ export default new Router({
       path: '/knowplay',
       component: knowgame,
       meta: {
-        isLogin: true
+        isLogin: true,
+        title: '游戏中'
       }
     },
     {
@@ -55,7 +62,8 @@ export default new Router({
       path: '/gameover',
       component: gameover,
       meta: {
-        isLogin: true
+        isLogin: true,
+        title: '游戏结束'
       }
     },
     {
@@ -63,7 +71,8 @@ export default new Router({
       path: '/score',
       component: score,
       meta: {
-        isLogin: true
+        isLogin: true,
+        title: '我的成绩'
       }
     }
   ]

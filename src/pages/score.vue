@@ -6,8 +6,9 @@
       <ul class="scoreList">
         <li class="item clearfix" v-for="(item, index) in list" :key="'score' + index">
           <span class="time">{{item.createTimeLong | date}}</span>
+          <span class="gameName">{{item.gameName}}</span>
           <span class="score"><b :class="{high: item.isConversion == 0}">{{item.scoreGain}}</b>&nbsp;分</span>
-          <span class="dhBtn" v-if="item.isConversion == 1">已兑换</span>
+          <span class="dhBtn" v-if="item.isConversion == 1 && item.scoreGain != 0">已兑换</span>
           <span class="dhBtn high" @click="sureChange(item.createTimeLong, item.scoreDetailId, index)" v-if="item.isConversion == 0 && item.scoreGain != 0">兑换</span>
         </li>
       </ul>
@@ -54,19 +55,25 @@
     },
     methods: {
       getList (page) {
-        let userDt = {
-          page: page.num,
-          limit: page.size
+        let times = 1
+        if (page.num !== 1) {
+          times = 1000
         }
-        scorelist(userDt).then(res => {
-          if (page.num === 1) {
-            this.list = res.data.scoreDetailList
-          } else {
-            this.list = [...this.list, ...res.data.scoreDetailList]
+        setTimeout(() => {
+          let userDt = {
+            page: page.num,
+            limit: page.size
           }
-          const hasNext = this.list.length === page.size
-          this.mescroll.endSuccess(this.list.length, hasNext)
-        })
+          scorelist(userDt).then(res => {
+            if (page.num === 1) {
+              this.list = res.data.scoreDetailList
+            } else {
+              this.list = [...this.list, ...res.data.scoreDetailList]
+            }
+            const hasNext = this.list.length === page.size
+            this.mescroll.endSuccess(this.list.length, hasNext)
+          })
+        }, times)
       },
       sureChange (date, id, index) {
         this.nowChange.date = date
@@ -134,24 +141,31 @@
         border-radius: 10px;
         height: 80px;
         line-height: 80px;
-        padding-left: 25px;
+        padding-left: 20px;
         overflow: hidden;
         margin-bottom: 14px;
+        display: flex;
+        align-items: center;
         .time{
-          width: 195px;
-          float: left;
+          width: 175px;
+        }
+        .gameName{
+          width: 150px;
+          font-size: 28px;
+          margin-right: 20px;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         .score{
-          width: 237px;
-          float: left;
+          width: 100px;
           background:url(../assets/img/m-icon4.png) no-repeat left center;
-          padding-left: 38px;
+          padding-left: 30px;
           .high{
             color: #ffcc00;
           }
         }
         .dhBtn{
-          float: left;
           width: 120px;
           height: 48px;
           margin-top: 13px;
