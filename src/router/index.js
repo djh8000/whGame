@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
+const login = () => import(/* webpackChunkName:'login' */ '../pages/login.vue')
 const home = () => import(/* webpackChunkName:'home' */ '../pages/home.vue')
 const puzzle = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/index.vue')
 const game = () => import(/* webpackChunkName:'game' */ '../pages/puzzle/game.vue')
@@ -13,6 +14,14 @@ const score = () => import(/* webpackChunkName:'score' */ '../pages/score.vue')
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      name: 'login',
+      path: '/login',
+      component: login,
+      meta: {
+        title: '登录'
+      }
+    },
     {
       name: 'home',
       path: '/',
