@@ -11,7 +11,23 @@
   
 </template>
 <script>
-  
+  import SlideUnlock from '../plugins/slideunlock'
+  export default {
+    name: 'login',
+    mounted () {
+      this.unlock()
+    },
+    methods: {
+      unlock () {
+        var slider = new SlideUnlock('#slider', {
+          successLabelTip: '验证成功'
+        }, function () {
+          alert('验证成功')
+        })
+        slider.init()
+      }
+    }
+  }
 </script>
 <style lang="scss" scoped>
 .loginMain {
